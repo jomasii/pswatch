@@ -71,6 +71,10 @@
   "buscape:console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k": {
    "failing_since": null,
    "alerted": false
+  },
+  "mercadolivre": {
+   "failing_since": null,
+   "alerted": false
   }
  }
 }
