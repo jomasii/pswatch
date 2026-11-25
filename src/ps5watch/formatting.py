@@ -43,9 +43,9 @@ def format_message(msg: Message, coupons: list[Coupon] | None = None) -> str:
     if offer.price_installment is not None:
         lines.append(f"Parcelado: {brl(offer.price_installment)}")
     if msg.low_30d is None:
-        lines.append("Menor preço dos últimos 30 dias: sem histórico ainda")
+        lines.append("📉 menor preço dos últimos 30 dias: sem histórico ainda")
     else:
-        lines.append(f"Menor preço dos últimos 30 dias: {brl(msg.low_30d)}")
+        lines.append(f"📉 menor preço dos últimos 30 dias: {brl(msg.low_30d)}")
     if offer.shipping_included is not True:
         lines.append("(frete não incluído)")
 
