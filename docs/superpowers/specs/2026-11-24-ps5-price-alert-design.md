@@ -83,6 +83,11 @@ Linguagem e bibliotecas; formato do arquivo de dados; lista final de lojas; form
 - **Preço que vale para os limites:** preço **à vista/Pix**. A mensagem mostra também o parcelado. Frete não entra no cálculo; a mensagem avisa quando o frete não está incluído. Quando uma loja só mostra preço parcelado ou único, vale o preço único mostrado.
 - **Se o Zoom/Buscapé bloquear o GitHub Actions:** começar pelo **escopo menor e grátis**, isto é, API oficial do Mercado Livre mais as lojas que for possível ler direto. Só considerar pago (Keepa, serviço de leitura de páginas) se faltar loja importante, e **só com nova autorização do João**. Custo continua zero por padrão.
 
+## Combos com jogos (decisão do João em 2026-11-25)
+- Console vendido junto com jogos **entra** nos alertas, com os mesmos limites (R$ 4.000 / R$ 3.600), e a mensagem traz a linha "🎮 Combo com jogos: <título do anúncio>".
+- Continuam de fora: jogo vendido sozinho, acessórios, PS5 Pro, edições limitadas, importados, usados e recondicionados.
+- "+ Controle DualSense" (o controle que já vem na caixa) não torna o anúncio combo.
+
 ## Cupons de desconto (adicionado depois da aprovação)
 - **Decisão do João:** só **avisar** que existe cupom ativo; o cupom **não muda** o preço usado nos limites de R$ 4.000 e R$ 3.600.
 - Cupons vêm de páginas de agregadores de cupons (por exemplo Promobit, Pelando, Cuponomia), sem API pública conhecida; leitura de página, com o mesmo risco de bloqueio. Falha ao ler cupons **nunca** atrapalha os alertas de preço.

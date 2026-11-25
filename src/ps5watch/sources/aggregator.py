@@ -7,7 +7,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Callable
 
-from ps5watch.matching import match_model
+from ps5watch.matching import classify
 from ps5watch.models import Offer
 from ps5watch.sources.base import SourceError
 
@@ -59,12 +59,16 @@ def parse_aggregator_page(html: str, source: str, now: datetime, assume_slim: bo
     offers: dict[tuple, Offer] = {}
     for raw in raw_offers:
         try:
-            model = match_model(raw.get("name", ""), assume_slim=assume_slim)
+            title = raw.get("name", "") or ""
+            match = classify(title, assume_slim=assume_slim)
             price = _parse_price(raw.get("price"))
-            if model is None or price is None or not raw.get("offeredBy"):
+            if match is None or price is None or not raw.get("offeredBy"):
                 continue
+            model, bundle = match
             offer = Offer(
                 model=model,
+                bundle=bundle,
+                title=title.strip(),
                 store=normalize_store(raw["offeredBy"]),
                 price_cash=price,
                 price_installment=None,

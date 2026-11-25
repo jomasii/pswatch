@@ -32,12 +32,18 @@ sources:
       - https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-4k
       - https://www.zoom.com.br/console-de-video-game/pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k
       - https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k
+      # combos com jogos
+      - https://www.zoom.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7
+      - https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k
   buscape:
     urls:
       - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-1tb-sony-4k-hdr
       - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-4k
       - https://www.buscape.com.br/console-de-video-game/pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k
       - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k
+      # combos com jogos
+      - https://www.buscape.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7
+      - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k
   mercadolivre:
     enabled: false
   coupons:

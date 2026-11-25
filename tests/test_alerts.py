@@ -84,6 +84,13 @@ def test_cheaper_offer_gone_for_good_rearms_after_cooldown(cfg):
     assert kinds(msgs) == ["normal"]
 
 
+def test_combo_competes_with_plain_console_under_same_limits(cfg):
+    offers = [make_offer(price="4370"), make_offer(price="3500", store="amazon", bundle=True)]
+    msgs, _ = run(offers, AlertState(), T0, cfg)
+    assert kinds(msgs) == ["max"]
+    assert msgs[0].offer.bundle is True
+
+
 def test_suspect_offer_does_not_hide_real_deal(cfg):
     offers = [make_offer(price="1500", store="amazon"), make_offer(price="3499")]
     msgs, state = run(offers, AlertState(), T0, cfg)

@@ -55,6 +55,16 @@ def test_format_suspect_and_health_messages():
     assert "voltou" in up
 
 
+def test_format_combo_offer_shows_combo_line_with_title():
+    offer = make_offer(price="3500", bundle=True, title="PS5 Slim Digital – Pacote ASTRO BOT e Gran Turismo 7")
+    text = format_message(Message(kind="max", model=offer.model, offer=offer))
+    assert "🎮 Combo com jogos: PS5 Slim Digital – Pacote ASTRO BOT e Gran Turismo 7" in text
+
+
+def test_format_plain_offer_has_no_combo_line():
+    assert "Combo" not in format_message(_msg())
+
+
 def test_format_message_includes_coupon_note():
     coupon = Coupon(store="kabum", code="BF10", description="10% off", source_url="https://c", seen_at=T0)
     text = format_message(_msg(), coupons=[coupon])

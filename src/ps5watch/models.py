@@ -21,6 +21,8 @@ class Offer:
     source: str
     seen_at: datetime
     shipping_included: bool | None = None
+    bundle: bool = False  # console vendido junto com jogos
+    title: str = ""
 
 
 @dataclass(frozen=True)

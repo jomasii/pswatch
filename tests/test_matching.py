@@ -1,6 +1,6 @@
 import pytest
 
-from ps5watch.matching import match_model
+from ps5watch.matching import classify, match_model
 from ps5watch.models import ModelKey
 
 
@@ -43,8 +43,45 @@ def test_match_model_excludes_accessories_refurbished_and_imports(title):
 
 def test_match_model_accepts_included_controller_after_plus():
     title = "Console Playstation 5 Slim Disk + Controle DualSense lacrado"
-    assert match_model(title) == ModelKey.SLIM_DISC
-    assert match_model("Console Playstation 5 Slim Disk + 2 Jogos") is None
+    assert classify(title) == (ModelKey.SLIM_DISC, False)
+
+
+@pytest.mark.parametrize(
+    "title, assume_slim, expected",
+    [
+        ("Console Playstation 5 Slim Disk + 2 Jogos", False, (ModelKey.SLIM_DISC, True)),
+        ("PS5 Slim Disco + 2 Jogos", False, (ModelKey.SLIM_DISC, True)),
+        ("PlayStation®5 Slim Digital 825GB – Pacote ASTRO BOT e Gran Turismo 7", False, (ModelKey.SLIM_DIGITAL, True)),
+        ("PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7", False, (ModelKey.SLIM_DISC, True)),
+        (
+            "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Sem Fio DualSense + 2 Jogos",
+            True,
+            (ModelKey.SLIM_DISC, True),
+        ),
+        (
+            "Console Sony PlayStation 5, SSD 825GB, Controle Sem Fio DualSense + 2 Jogos Digitais, Edição Digital",
+            True,
+            (ModelKey.SLIM_DIGITAL, True),
+        ),
+    ],
+)
+def test_classify_marks_console_with_games_as_combo(title, assume_slim, expected):
+    assert classify(title, assume_slim=assume_slim) == expected
+
+
+@pytest.mark.parametrize(
+    "title",
+    [
+        "Jogo Astro Bot PS5 Slim",
+        "Jogos PS5 Slim Gran Turismo 7 + Astro Bot",
+    ],
+)
+def test_classify_rejects_games_sold_alone(title):
+    assert classify(title, assume_slim=True) is None
+
+
+def test_classify_plain_console_is_not_combo():
+    assert classify("Console PlayStation 5 Slim Disk 1TB Físico") == (ModelKey.SLIM_DISC, False)
 
 
 def test_match_model_assume_slim_for_slim_pages():
@@ -58,7 +95,6 @@ def test_match_model_assume_slim_for_slim_pages():
     [
         "Sony PlayStation 5 Slim Disc Edition DualSense Wireless Controller Double Pack PS5 - KSA Version",
         "PlayStation 5 Disc Console (New 2023 Slim Model)- UAE Version, 1 Year Manufacturer Warranty",
-        "PlayStation®5 Slim Digital 825GB – Pacote ASTRO BOT e Gran Turismo 7",
         "PS5 Digital 30th Anniversary Edition Slim",
         "Pack do console PlayStation®5 – Edição Limitada Ouro - Ghost of Yōtei",
     ],
@@ -72,7 +108,6 @@ def test_match_model_excludes_imports_packs_and_limited(title):
     [
         "PlayStation 5 Pro 2TB",
         "Controle DualSense PS5",
-        "PS5 Slim Disco + 2 Jogos",
         "Console PS5 Slim Usado",
         "Capa para PS5 Slim",
     ],

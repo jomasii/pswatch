@@ -26,4 +26,6 @@ def make_offer(model=ModelKey.SLIM_DISC, price="3950", store="kabum", **kw):
         source=kw.get("source", "test"),
         seen_at=kw.get("seen_at", T0),
         shipping_included=kw.get("shipping_included"),
+        bundle=kw.get("bundle", False),
+        title=kw.get("title", ""),
     )

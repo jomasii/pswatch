@@ -39,7 +39,10 @@ def format_message(msg: Message, coupons: list[Coupon] | None = None) -> str:
     else:
         header = "🔔 Preço abaixo de R$ 4.000"
 
-    lines = [header, f"{model} — {offer.store}", f"À vista/Pix: {brl(offer.price_cash)}"]
+    lines = [header, f"{model} — {offer.store}"]
+    if offer.bundle:
+        lines.append(f"🎮 Combo com jogos: {offer.title}" if offer.title else "🎮 Combo com jogos")
+    lines.append(f"À vista/Pix: {brl(offer.price_cash)}")
     if offer.price_installment is not None:
         lines.append(f"Parcelado: {brl(offer.price_installment)}")
     if msg.low_30d is None:

@@ -76,6 +76,19 @@ def test_parse_skips_non_positive_and_malformed_prices_but_keeps_the_rest():
     assert [o.store for o in offers] == ["magazine luiza"]
 
 
+def test_parse_marks_combo_offers_and_keeps_title():
+    title = "PlayStation®5 Slim Digital 825GB – Pacote ASTRO BOT e Gran Turismo 7"
+    html = _page_with_offers(
+        [
+            {"name": title, "offeredBy": "Amazon", "price": 4599, "url": "https://a"},
+            {"name": "Console PlayStation 5 Slim Digital 1TB", "offeredBy": "KaBuM!", "price": 4370.07, "url": "https://b"},
+        ]
+    )
+    offers = {o.store: o for o in parse_aggregator_page(html, "zoom", T0, assume_slim=True)}
+    assert offers["amazon"].bundle is True and offers["amazon"].title == title
+    assert offers["kabum"].bundle is False
+
+
 def test_parse_page_without_offers_raises_source_error():
     with pytest.raises(SourceError):
         parse_aggregator_page(fixture("blocked.html"), "zoom", T0, assume_slim=True)
