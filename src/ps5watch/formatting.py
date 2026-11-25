@@ -17,7 +17,17 @@ def brl(value: Decimal) -> str:
 
 
 def _health_text(detail: str) -> str:
-    name, _, status = detail.partition("|")
+    name, status, pages_text = (detail.split("|") + ["", ""])[:3]
+    pages = [p for p in pages_text.split(", ") if p]
+    if pages:
+        count = f"{len(pages)} página" if len(pages) == 1 else f"{len(pages)} páginas"
+        listing = "\n".join(f"• {p}" for p in pages)
+        if status == "up":
+            return f"✅ {name}: {count} voltou a funcionar:\n{listing}"
+        return (
+            f"⚠️ {name}: {count} fora do ar há mais de 10 minutos:\n{listing}\n"
+            "As ofertas dessas páginas não estão sendo conferidas."
+        )
     if status == "up":
         return f"✅ A fonte {name} voltou a funcionar."
     return (

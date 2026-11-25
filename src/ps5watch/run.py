@@ -16,22 +16,52 @@ from ps5watch.store import low_30d, record_history
 log = logging.getLogger("ps5watch")
 
 
+PAGE_SEP = ":"
+
+
+def _slug(url: str) -> str:
+    return url.rstrip("/").rsplit("/", 1)[-1]
+
+
 def _fetch_all(sources) -> tuple[list[Offer], dict[str, str | None]]:
+    """Busca todas as fontes. A saúde é acompanhada por fonte e, quando a fonte
+    tem várias páginas (Zoom/Buscapé), também por página ("zoom:<página>")."""
     offers: list[Offer] = []
     results: dict[str, str | None] = {}
     for source in sources:
         try:
             found = source.fetch()
+            error = None
         except Exception as exc:  # qualquer falha da fonte vira aviso de saúde
             log.warning("fonte %s falhou: %s", source.name, exc)
-            results[source.name] = str(exc) or type(exc).__name__
-            continue
-        if not found:
+            found, error = [], str(exc) or type(exc).__name__
+        pages = getattr(source, "page_errors", None) or {}
+        for url, page_error in pages.items():
+            results[f"{source.name}{PAGE_SEP}{_slug(url)}"] = page_error
+        if pages and error is not None:
+            results[source.name] = None  # as páginas já avisam; evita mensagem duplicada
+        elif error is not None:
+            results[source.name] = error
+        elif not found:
             results[source.name] = "nenhuma oferta encontrada"
-            continue
-        results[source.name] = None
+        else:
+            results[source.name] = None
         offers.extend(found)
     return offers, results
+
+
+def _group_health(events: list[tuple[str, str]]) -> list[str]:
+    """Junta eventos de páginas da mesma fonte numa só mensagem: 'fonte|status|pág1, pág2'."""
+    grouped: dict[tuple[str, str], list[str]] = {}
+    for name, status in events:
+        source, _, page = name.partition(PAGE_SEP)
+        grouped.setdefault((source, status), [])
+        if page:
+            grouped[(source, status)].append(page)
+    return [
+        f"{source}|{status}" + (f"|{', '.join(pages)}" if pages else "")
+        for (source, status), pages in grouped.items()
+    ]
 
 
 def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source=None) -> None:
@@ -40,8 +70,8 @@ def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source
 
     offers, results = _fetch_all(sources)
     events, new_health = update_health(health, results, now, cfg)
-    for name, status in events:
-        telegram.send(format_message(Message(kind="health", detail=f"{name}|{status}")))
+    for detail in _group_health(events):
+        telegram.send(format_message(Message(kind="health", detail=detail)))
 
     coupons = []
     if coupon_source is not None:

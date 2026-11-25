@@ -114,6 +114,19 @@ def test_fetch_returns_offers_from_all_pages_and_survives_one_bad_page():
     assert models == {ModelKey.SLIM_DISC, ModelKey.SLIM_DIGITAL}
 
 
+def test_fetch_records_error_per_page():
+    session = FakeSession(
+        {
+            "https://z/disc": FakeResponse(fixture("zoom_slim_disc.html")),
+            "https://z/bad": FakeResponse(status=500),
+        }
+    )
+    source = AggregatorSource("zoom", ["https://z/disc", "https://z/bad"], session, lambda: T0)
+    source.fetch()
+    assert source.page_errors["https://z/disc"] is None
+    assert "500" in source.page_errors["https://z/bad"]
+
+
 def test_fetch_all_pages_failing_raises_source_error():
     session = FakeSession({"https://z/a": FakeResponse(fixture("blocked.html"))})
     with pytest.raises(SourceError):

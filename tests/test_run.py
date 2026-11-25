@@ -104,6 +104,55 @@ def test_coupon_does_not_change_thresholds(cfg):
     assert len(tg.sent) == 1 and "Cupom ativo: BF10" in tg.sent[0]
 
 
+class PagedSource:
+    """Fonte com várias páginas, como o Zoom: informa o erro de cada página."""
+
+    def __init__(self, name, offers, page_errors, raise_all=False):
+        self.name = name
+        self._offers = offers
+        self._page_errors = page_errors
+        self._raise_all = raise_all
+        self.page_errors = {}
+
+    def fetch(self):
+        self.page_errors = dict(self._page_errors)
+        if self._raise_all:
+            raise SourceError("todas as páginas falharam")
+        return list(self._offers)
+
+
+def test_partial_page_failure_alerts_after_10_minutes_naming_the_page(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    pages = {"https://z/console-ps5-slim-disc": None, "https://z/ps5-slim-bundle-astro": "HTTP 503"}
+    source = PagedSource("zoom", [make_offer(price="4600")], pages)
+    run_once([source], store, tg, cfg, T0)
+    assert tg.sent == []
+    run_once([source], store, tg, cfg, T0 + timedelta(minutes=10))
+    assert len(tg.sent) == 1
+    assert "zoom" in tg.sent[0] and "ps5-slim-bundle-astro" in tg.sent[0] and "fora do ar" in tg.sent[0]
+    assert "console-ps5-slim-disc" not in tg.sent[0]
+
+
+def test_total_failure_of_paged_source_sends_a_single_message(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    pages = {"https://z/a": "HTTP 403", "https://z/b": "HTTP 403", "https://z/c": "HTTP 403"}
+    source = PagedSource("zoom", [], pages, raise_all=True)
+    run_once([source], store, tg, cfg, T0)
+    run_once([source], store, tg, cfg, T0 + timedelta(minutes=10))
+    assert len(tg.sent) == 1
+    assert "3 páginas" in tg.sent[0]
+
+
+def test_recovered_page_sends_back_up_message(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    bad = PagedSource("zoom", [make_offer(price="4600")], {"https://z/a": None, "https://z/b": "HTTP 503"})
+    run_once([bad], store, tg, cfg, T0)
+    run_once([bad], store, tg, cfg, T0 + timedelta(minutes=10))
+    good = PagedSource("zoom", [make_offer(price="4600")], {"https://z/a": None, "https://z/b": None})
+    run_once([good], store, tg, cfg, T0 + timedelta(minutes=11))
+    assert len(tg.sent) == 2 and "voltou" in tg.sent[1] and "b" in tg.sent[1]
+
+
 def test_suspect_prices_are_not_recorded_in_history(cfg):
     store, tg = MemoryStore(), FakeTelegram()
     run_once([FakeSource("zoom", [make_offer(price="1500")])], store, tg, cfg, T0)

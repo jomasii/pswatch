@@ -90,10 +90,13 @@ class AggregatorSource:
         self._urls = urls
         self._session = session
         self._clock = clock
+        # Resultado da última leitura de cada página: None se funcionou, senão o erro.
+        self.page_errors: dict[str, str | None] = {}
 
     def fetch(self) -> list[Offer]:
         offers: list[Offer] = []
         errors: list[str] = []
+        self.page_errors = {}
         for url in self._urls:
             try:
                 response = self._session.get(url, headers=HEADERS, timeout=15)
@@ -101,11 +104,10 @@ class AggregatorSource:
                     raise SourceError(f"HTTP {response.status_code}")
                 assume_slim = "slim" in url
                 offers.extend(parse_aggregator_page(response.text, self.name, self._clock(), assume_slim))
-            except SourceError as exc:
-                errors.append(f"{url}: {exc}")
-                log.warning("%s %s", self.name, errors[-1])
+                self.page_errors[url] = None
             except Exception as exc:
-                errors.append(f"{url}: {exc}")
+                self.page_errors[url] = str(exc) or type(exc).__name__
+                errors.append(f"{url}: {self.page_errors[url]}")
                 log.warning("%s %s", self.name, errors[-1])
         if len(errors) == len(self._urls):
             raise SourceError("; ".join(errors) or "sem páginas configuradas")
