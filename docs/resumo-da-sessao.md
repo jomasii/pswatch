@@ -102,6 +102,13 @@ Escolhas feitas por mim (e o custo se estiverem erradas):
 - Uma linha por modelo+loja+preço+combo, preferindo o Zoom ao Buscapé (mesma oferta repetida). Custo: dois anúncios diferentes da mesma loja com o mesmo preço viram uma linha.
 - "Menores preços já vistos" agrupa por preço, com nº de vezes e tempo total no ar. Custo: um preço visto uma vez por muito tempo e um visto várias vezes só se distinguem pela contagem.
 - "Ainda no ar" só se a oferta estiver na lista atual (sem isso, o Mercado Livre pausado parecia ativo para sempre).
+
+### Página estável, sem deploy a toda hora (25/11, noite)
+- Antes: o GitHub Pages publicava a partir do ramo `data`, então cada gravação de dados (a cada 1–10 min) gerava um deploy novo.
+- Agora: o Pages é publicado pelo workflow `pages.yml`, que só roda quando a pasta `site/` muda no `main` (ou à mão). Os dados continuam no ramo `data`, e a página os busca direto: API do GitHub → `raw.githubusercontent.com`.
+- Saiu: o passo "Publicar página" do `watch.yml` (com `scripts/publish_site.py` e seu teste) e a 3ª alternativa de busca (cópia dos dados no próprio Pages).
+- Conferido: deploy do workflow verde, página no ar com dados ao vivo e sem erros, e um commit de dados às 23:15 sem gerar deploy.
+- O limite de ~10 publicações/h do Pages deixou de importar para o batimento de 10 min.
 - Quando o vigia já vai gravar por outro motivo, leva junto a lista de ofertas atualizada. Custo: um pouco mais de gravações.
 - Links levam à página do Zoom/Buscapé com a oferta destacada, não direto à loja. Custo: um clique a mais.
 
