@@ -34,6 +34,36 @@ def test_parse_items_keeps_ps5_slim_and_skips_parts_imports_and_out_of_stock():
     assert offers[1].title.startswith("Console PlayStation5 Slim Disk")
 
 
+PS5 = {"eTituloProduto": "Console PlayStation 5 Slim Digital 825GB", "novoPreco": 3899,
+       "zProdutoLink": "https://www.mercadolivre.com.br/x"}
+
+
+@pytest.mark.parametrize(
+    "promo, expected",
+    [
+        (None, ""),
+        ("", ""),
+        ([], ""),
+        ("  Cupom R$ 200 OFF  ", "Cupom R$ 200 OFF"),
+        (["Cupom R$ 200 OFF", "10% OFF no Pix"], "Cupom R$ 200 OFF · 10% OFF no Pix"),
+        ([{"label": "Cupom R$ 150 OFF", "id": 7}], "Cupom R$ 150 OFF"),
+        ({"texto": "Frete grátis", "valor": 0}, "Frete grátis"),
+        ("x" * 300, "x" * 117 + "..."),
+    ],
+)
+def test_parse_items_keeps_mercadolivre_promotion_text(promo, expected):
+    [offer] = parse_items([{**PS5, "promocoes": promo}], T0)
+    assert offer.promo == expected
+
+
+def test_promotion_survives_cache(tmp_path):
+    session = FakeSession(FakeResponse(201, [{**PS5, "promocoes": ["Cupom R$ 200 OFF"]}]))
+    source, clock = make_source(tmp_path, session, T0)
+    source.fetch()
+    clock["now"] = T0 + timedelta(minutes=1)
+    assert source.fetch()[0].promo == "Cupom R$ 200 OFF"
+
+
 class FakeResponse:
     def __init__(self, status, body):
         self.status_code = status

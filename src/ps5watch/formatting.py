@@ -61,6 +61,11 @@ def format_message(msg: Message, coupons: list[Coupon] | None = None) -> str:
         lines.append(f"📉 menor preço dos últimos 30 dias: {brl(msg.low_30d)}")
     if offer.shipping_included is not True:
         lines.append("(frete não incluído)")
+    if offer.promo:
+        lines.append(
+            f"🎟️ Cupom/promoção do anúncio: {offer.promo} "
+            "(confira as condições; o alerta usa o preço sem cupom)"
+        )
 
     for coupon in coupons or []:
         if coupon.store.lower() == offer.store.lower():

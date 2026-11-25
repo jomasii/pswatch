@@ -23,6 +23,7 @@ class Offer:
     shipping_included: bool | None = None
     bundle: bool = False  # console vendido junto com jogos
     title: str = ""
+    promo: str = ""  # cupom/promoção mostrado no anúncio; só informativo
 
 
 @dataclass(frozen=True)

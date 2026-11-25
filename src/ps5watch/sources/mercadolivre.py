@@ -46,6 +46,30 @@ def _flag(value) -> bool | None:
     return str(value).strip().lower() in _YES
 
 
+PROMO_MAX = 120
+
+
+def _promo_text(value) -> str:
+    """Transforma o campo de promoções do robô (formato não documentado) em texto curto."""
+    parts: list[str] = []
+
+    def collect(v) -> None:
+        if isinstance(v, str):
+            if v.strip():
+                parts.append(" ".join(v.split()))
+        elif isinstance(v, dict):
+            for inner in v.values():
+                if isinstance(inner, (str, list, dict)):
+                    collect(inner)
+        elif isinstance(v, list):
+            for inner in v:
+                collect(inner)
+
+    collect(value)
+    text = " · ".join(dict.fromkeys(parts))
+    return text if len(text) <= PROMO_MAX else text[: PROMO_MAX - 3] + "..."
+
+
 def parse_items(items: list, now: datetime) -> list[Offer]:
     offers = []
     for item in items:
@@ -64,13 +88,17 @@ def parse_items(items: list, now: datetime) -> list[Offer]:
                 model=model, store=STORE, price_cash=price, price_installment=None,
                 url=str(item.get("zProdutoLink") or ""), source=NAME, seen_at=now,
                 shipping_included=None, bundle=bundle, title=title,
+                promo=_promo_text(item.get("promocoes")),
             )
         )
     return offers
 
 
 def _offer_to_dict(o: Offer) -> dict:
-    return {"model": o.model.value, "price": str(o.price_cash), "url": o.url, "bundle": o.bundle, "title": o.title}
+    return {
+        "model": o.model.value, "price": str(o.price_cash), "url": o.url,
+        "bundle": o.bundle, "title": o.title, "promo": o.promo,
+    }
 
 
 def _offer_from_dict(d: dict, seen_at: datetime) -> Offer:
@@ -79,7 +107,7 @@ def _offer_from_dict(d: dict, seen_at: datetime) -> Offer:
     return Offer(
         model=ModelKey(d["model"]), store=STORE, price_cash=Decimal(d["price"]), price_installment=None,
         url=d["url"], source=NAME, seen_at=seen_at, shipping_included=None,
-        bundle=d.get("bundle", False), title=d.get("title", ""),
+        bundle=d.get("bundle", False), title=d.get("title", ""), promo=d.get("promo", ""),
     )
 
 

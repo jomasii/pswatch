@@ -15,14 +15,14 @@ Uma aplicação web que mostre a variação de preço e avise quando o preço ca
 | Hospedagem | Grátis: GitHub Actions + GitHub Pages, repositório público; Apify no plano grátis (US$ 5/mês) |
 | Latência | Disparo externo (cron-job.org, a cada 2 min) em vez do agendador nativo do GitHub; laço de checagem a cada 45 s dentro de cada execução |
 | Combos com jogos | **Incluídos** no alerta, marcados na mensagem como "🎮 Combo com jogos" |
-| Cupons | Quando houver, só **avisar**; nunca mudam o limite do alerta (não construído) |
+| Cupons | Só **avisar**; nunca mudam o limite do alerta. Mercado Livre: cupom do próprio anúncio aparece no alerta. Amazon/Pelando: bloqueiam leitura da nuvem → use o alerta "PS5" no app do Pelando |
 
 ## 3. O que foi construído
 - Código Python em `src/ps5watch/`: leitura das fontes, identificação do modelo pelo título, regras de alerta, aviso de falha de fonte, cliente do Telegram, histórico e estado guardados na branch `data`.
 - Página com gráfico de histórico: <https://jomasii.github.io/pswatch/>
 - Repositório: <https://github.com/jomasii/pswatch>
 - Workflows: `watch` (vigia), `probe` (teste das fontes), `telegram-test` (mensagem de teste), `apify-probe` (teste dos robôs do Apify), `ml-probe` (teste da API oficial do Mercado Livre, aguardando aprovação do app).
-- **128 testes** automáticos passando.
+- **139 testes** automáticos passando.
 - Documentos: `docs/superpowers/specs/2026-11-24-ps5-price-alert-design.md` (desenho), `docs/superpowers/plans/2026-11-24-ps5-price-alert.md` (plano), `docs/setup.md` (passo a passo).
 
 ### Adicionado em 25/11
@@ -67,6 +67,11 @@ Uma aplicação web que mostre a variação de preço e avise quando o preço ca
 - Títulos colados como "Slimdigital"/"Slimdisk" passaram a ser reconhecidos.
 - Anúncios sem estoque são ignorados.
 
+### Cupons
+- O alerta de uma oferta do Mercado Livre mostra a linha "🎟️ Cupom/promoção do anúncio: ..." quando o anúncio tem cupom. O limite continua valendo sobre o preço **sem** cupom.
+- O formato do campo de cupom do robô não é documentado; o texto é lido de forma tolerante (nunca quebra o alerta) e só será visto de verdade na sexta.
+- Teste grátis de 25/11: **Pelando** (bloqueio da Cloudflare, HTTP 403) e **Amazon** (HTTP 503) não abrem a partir do GitHub. Para eles: alerta "PS5" no app do Pelando, com notificações ligadas.
+
 ### Cuidado ao editar datas no `config.yaml`
 Use sempre dois dígitos: `2026-12-01`, não `2026-12-1`. Uma data inválida faz o vigia inteiro parar (inclusive Zoom e Buscapé).
 
@@ -79,8 +84,8 @@ Use sempre dois dígitos: `2026-12-01`, não `2026-12-1`. Uma data inválida faz
 ## 7. Pendências
 1. **Congelamento**: nenhuma mudança no código na sexta. Mudanças só até quinta à noite (26/11).
 2. **App oficial do Mercado Livre**: aguardando aprovação (até 10 dias); o `ml-probe` está pronto para quando sair. Provavelmente não chega a tempo.
-3. **Cupons** (só aviso): não construído.
-4. **Menores adiados:** aviso de falha pode ser dado como enviado mesmo se o Telegram falhar; limite de 8 min da execução pode cortar uma checagem; nomes como "Amazon.com.br" não casam com a lista de lojas.
+3. **Sua parte:** criar o alerta "PS5" no app do Pelando; notificações do Telegram com som; estar logado nas lojas com endereço e Pix prontos.
+4. **Menores adiados:** aviso de falha pode ser dado como enviado mesmo se o Telegram falhar; limite de 8 min da execução pode cortar uma checagem. (O nome "Amazon" foi conferido e casa normalmente.)
 5. Acabamento das mensagens: loja em minúsculas ("kabum", "mercado livre"); a linha "menor preço dos últimos 30 dias" mostra o próprio preço nos primeiros dias.
 6. Conferir na primeira alerta real se o preço é o à vista/Pix. No Mercado Livre o robô traz só o preço anunciado (normalmente igual ao Pix).
 

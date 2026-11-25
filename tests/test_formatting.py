@@ -61,6 +61,16 @@ def test_format_combo_offer_shows_combo_line_with_title():
     assert "🎮 Combo com jogos: PS5 Slim Digital – Pacote ASTRO BOT e Gran Turismo 7" in text
 
 
+def test_format_offer_with_promotion_shows_promo_line():
+    offer = make_offer(price="3900", store="mercado livre", promo="Cupom R$ 200 OFF")
+    text = format_message(Message(kind="normal", model=offer.model, offer=offer))
+    assert "🎟️ Cupom/promoção do anúncio: Cupom R$ 200 OFF (confira as condições; o alerta usa o preço sem cupom)" in text
+
+
+def test_format_offer_without_promotion_has_no_promo_line():
+    assert "🎟️" not in format_message(_msg())
+
+
 def test_format_plain_offer_has_no_combo_line():
     assert "Combo" not in format_message(_msg())
 
