@@ -1,0 +1,30 @@
+normal_threshold: "4000"
+max_threshold: "3600"
+suspect_floor: "2000"
+max_repeats: 5
+max_repeat_interval_s: 60
+health_after_s: 600
+loop_duration_s: 290
+loop_interval_s: 45
+
+# Lojas aceitas (minusculas, sem acento). Edite aqui para mudar a lista.
+allowed_stores:
+  - amazon
+  - mercado livre
+  - magazine luiza
+  - magalu
+  - kabum
+  - americanas
+  - casas bahia
+  - fast shop
+  - carrefour
+
+sources:
+  zoom:
+    urls: {}
+  buscape:
+    urls: {}
+  mercadolivre:
+    enabled: true
+  coupons:
+    urls: {}
