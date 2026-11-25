@@ -22,7 +22,7 @@ Uma aplicação web que mostre a variação de preço e avise quando o preço ca
 - Página com gráfico de histórico: <https://jomasii.github.io/pswatch/>
 - Repositório: <https://github.com/jomasii/pswatch>
 - Workflows: `watch` (vigia), `probe` (teste das fontes), `telegram-test` (mensagem de teste), `apify-probe` (teste dos robôs do Apify), `ml-probe` (teste da API oficial do Mercado Livre, aguardando aprovação do app).
-- **139 testes** automáticos passando.
+- **158 testes** automáticos passando.
 - Documentos: `docs/superpowers/specs/2026-11-24-ps5-price-alert-design.md` (desenho), `docs/superpowers/plans/2026-11-24-ps5-price-alert.md` (plano), `docs/setup.md` (passo a passo).
 
 ### Adicionado em 25/11
@@ -30,6 +30,13 @@ Uma aplicação web que mostre a variação de preço e avise quando o preço ca
 - **Aviso de falha por página**: se uma página do Zoom/Buscapé cair por mais de 10 min, chega uma mensagem por fonte listando as páginas afetadas, e outra quando voltam.
 - **Teste de alerta real**: o limite foi subido para R$ 4.500 por alguns minutos, o alerta chegou certo no Telegram e o limite voltou para R$ 4.000.
 - **Mercado Livre via Apify** (detalhes na seção 5).
+- **Painel ao vivo** em <https://jomasii.github.io/pswatch/> (desenho em `docs/superpowers/specs/2026-11-25-painel-ao-vivo-design.md`):
+  - visual escuro; destaque do menor preço de cada modelo com quanto falta para R$ 4.000 e botão "Abrir oferta";
+  - 🏆 ranking das ofertas de agora (filtros Digital / Com leitor / Sem combos) e 📉 menores preços já vistos (vezes e tempo no ar);
+  - atualiza sozinho a cada ~75 s; a barra mostra a última checagem e fica **vermelha ("vigia parado?") após 15 min** sem checagem;
+  - os links abrem a página do Zoom/Buscapé com a oferta da loja destacada (mais um clique até a loja); no Mercado Livre, o anúncio direto;
+  - se o GitHub limitar as consultas, entra em "modo lento" (atraso até ~5 min) e avisa na barra;
+  - o histórico passou a guardar o link de cada preço; preços antigos aparecem como "sem link".
 
 ## 4. Estado em produção (verificado nos logs)
 - Zoom e Buscapé **abrem** a partir do GitHub Actions; 6 páginas em cada (4 do console e 2 de combos).
