@@ -1,0 +1,61 @@
+name: watch
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"   # reserva; o disparo principal vem do cron-job.org a cada 1 minuto
+
+concurrency:
+  group: watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Garantir que a branch data existe
+        run: |
+          if ! git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git config user.name "ps5watch"
+            git config user.email "ps5watch@users.noreply.github.com"
+            git checkout --orphan data
+            git rm -rf . >/dev/null 2>&1 || true
+            git commit --allow-empty -m "data: init"
+            git push origin data
+            git checkout -f "${GITHUB_SHA}"
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: data
+          path: data
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Preparar branch data
+        working-directory: data
+        run: |
+          git config user.name "ps5watch"
+          git config user.email "ps5watch@users.noreply.github.com"
+
+      - name: Publicar página
+        run: python scripts/publish_site.py site data
+
+      - name: Vigiar preços
+        env:
+          PYTHONPATH: src
+          PS5WATCH_DATA_DIR: data
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python -m ps5watch.run
