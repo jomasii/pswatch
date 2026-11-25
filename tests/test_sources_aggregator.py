@@ -33,11 +33,13 @@ class FakeSession:
 
 def test_parse_zoom_disc_page_returns_matching_store_offers():
     offers = parse_aggregator_page(fixture("zoom_slim_disc.html"), "zoom", T0, assume_slim=True)
-    assert len(offers) == 1
+    # Magalu e Amazon ("Disk + Controle DualSense" = controle que já vem na caixa).
+    assert [(o.store, o.price_cash) for o in sorted(offers, key=lambda o: o.price_cash)] == [
+        ("magazine luiza", Decimal("4621.75")),
+        ("amazon", Decimal("5199.9")),
+    ]
     offer = offers[0]
     assert offer.model == ModelKey.SLIM_DISC
-    assert offer.store == "magazine luiza"
-    assert offer.price_cash == Decimal("4621.75")
     assert offer.url.startswith("http")
     assert offer.source == "zoom"
 
@@ -52,6 +54,26 @@ def test_parse_zoom_digital_page_returns_digital_offers():
 def test_parse_buscape_page_uses_same_structure():
     offers = parse_aggregator_page(fixture("buscape_slim_disc.html"), "buscape", T0, assume_slim=True)
     assert offers and all(o.source == "buscape" for o in offers)
+
+
+def _page_with_offers(offers: list[dict]) -> str:
+    import json
+
+    product = {"@type": "Product", "offers": {"offers": offers}}
+    return '<script type="application/ld+json">' + json.dumps({"@graph": [product]}) + "</script>"
+
+
+def test_parse_skips_non_positive_and_malformed_prices_but_keeps_the_rest():
+    name = "Console PlayStation 5 Slim Digital 1TB"
+    html = _page_with_offers(
+        [
+            {"name": name, "offeredBy": "Amazon", "price": 0, "url": "https://a"},
+            {"name": name, "offeredBy": "KaBuM!", "price": "3.599,90", "url": "https://b"},
+            {"name": name, "offeredBy": "Magazine Luiza", "price": 4000, "url": "https://c"},
+        ]
+    )
+    offers = parse_aggregator_page(html, "zoom", T0, assume_slim=True)
+    assert [o.store for o in offers] == ["magazine luiza"]
 
 
 def test_parse_page_without_offers_raises_source_error():

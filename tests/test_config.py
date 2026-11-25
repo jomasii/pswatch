@@ -17,4 +17,5 @@ def test_load_config_reads_spec_values():
     assert cfg.health_after_s == 600
     assert cfg.loop_duration_s == 290
     assert cfg.loop_interval_s == 45
+    assert cfg.rearm_after_s == 1800
     assert "amazon" in cfg.allowed_stores

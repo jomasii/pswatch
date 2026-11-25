@@ -11,10 +11,19 @@ EXCLUDE_WORDS = {
     "jogo", "jogos", "bundle", "combo", "kit", "pack", "pacote", "double",
     "uae", "ksa", "import", "importado", "international", "internacional",
     "limitada", "limitado", "limited", "anniversary", "aniversario", "ouro",
+    "skin", "adesivo", "base", "carregador", "carregamento", "recondicionado",
+    "recondicionada", "vitrine", "open", "japonesa", "japones", "cabo",
+    "headset", "fone", "volante", "drive",
 }
+# Se o título COMEÇA por uma destas palavras, é um acessório, não o console.
+ACCESSORY_FIRST_WORDS = {"leitor", "skin", "base", "capa", "suporte", "cabo", "controle", "controller"}
 # "controle" só desqualifica quando o anúncio não é de um console.
 CONTROLLER_WORDS = {"controle", "controles", "controller", "dualsense"}
 DISC_WORDS = {"disco", "discos", "disk", "disc", "leitor", "fisico", "fisica", "standard"}
+
+# "+ Controle DualSense" é o controle que já vem na caixa; qualquer outro "+" é combo/bundle.
+_INCLUDED_CONTROLLER = re.compile(r"\+\s*(?:\d+\s*)?(?:controle|controller|dualsense)\b[^+,]*")
+_FOR_CONSOLE = re.compile(r"\bpara (?:o |a )?(?:console|ps ?5|playstation)")
 
 
 def _normalize(title: str) -> str:
@@ -24,10 +33,13 @@ def _normalize(title: str) -> str:
 
 
 def match_model(title: str, assume_slim: bool = False) -> ModelKey | None:
-    text = _normalize(title)
-    if "+" in text:
+    text = _INCLUDED_CONTROLLER.sub(" ", _normalize(title))
+    if "+" in text or _FOR_CONSOLE.search(text):
         return None
-    words = set(re.findall(r"[a-z0-9]+", text))
+    ordered = re.findall(r"[a-z0-9]+", text)
+    words = set(ordered)
+    if not ordered or ordered[0] in ACCESSORY_FIRST_WORDS:
+        return None
     if words & EXCLUDE_WORDS:
         return None
     if "console" not in words and words & CONTROLLER_WORDS:

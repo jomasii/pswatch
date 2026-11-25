@@ -58,7 +58,8 @@ def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source
             previous = alert.models.get(msg.model)
             new_alert.models[msg.model] = previous if previous is not None else ModelAlertState()
 
-    history_changed = record_history(history, offers, now)
+    plausible = [o for o in offers if o.price_cash >= cfg.suspect_floor]
+    history_changed = record_history(history, plausible, now)
     changed = history_changed or new_alert.to_dict() != old_alert or new_health.to_dict() != old_health
     store.save(new_alert, new_health, history, changed)
 

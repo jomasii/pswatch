@@ -104,6 +104,12 @@ def test_coupon_does_not_change_thresholds(cfg):
     assert len(tg.sent) == 1 and "Cupom ativo: BF10" in tg.sent[0]
 
 
+def test_suspect_prices_are_not_recorded_in_history(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    run_once([FakeSource("zoom", [make_offer(price="1500")])], store, tg, cfg, T0)
+    assert store.history == {}
+
+
 def test_low_30d_uses_history_before_this_check(cfg):
     store, tg = MemoryStore(), FakeTelegram()
     run_once([FakeSource("zoom", [make_offer(price="4200")])], store, tg, cfg, T0)

@@ -26,6 +26,27 @@ def test_match_model_real_zoom_titles(title, expected):
     assert match_model(title) == expected
 
 
+@pytest.mark.parametrize(
+    "title",
+    [
+        "Leitor de Disco para Console PS5 Slim Digital",
+        "Skin Adesivo Console PS5 Slim Digital",
+        "Base de Carregamento DualSense PS5 Slim Console Digital",
+        "Console PS5 Slim Digital Recondicionado",
+        "Console PS5 Slim Digital Vitrine",
+        "Console PS5 Slim Digital Versao Japonesa",
+    ],
+)
+def test_match_model_excludes_accessories_refurbished_and_imports(title):
+    assert match_model(title, assume_slim=True) is None
+
+
+def test_match_model_accepts_included_controller_after_plus():
+    title = "Console Playstation 5 Slim Disk + Controle DualSense lacrado"
+    assert match_model(title) == ModelKey.SLIM_DISC
+    assert match_model("Console Playstation 5 Slim Disk + 2 Jogos") is None
+
+
 def test_match_model_assume_slim_for_slim_pages():
     title = "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Sem Fio DualSense"
     assert match_model(title) is None

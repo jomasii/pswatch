@@ -18,6 +18,7 @@ class Config:
     health_after_s: int
     loop_duration_s: int
     loop_interval_s: int
+    rearm_after_s: int
 
 
 def load_config(path: Path) -> Config:
@@ -32,4 +33,5 @@ def load_config(path: Path) -> Config:
         health_after_s=int(raw["health_after_s"]),
         loop_duration_s=int(raw["loop_duration_s"]),
         loop_interval_s=int(raw["loop_interval_s"]),
+        rearm_after_s=int(raw["rearm_after_s"]),
     )

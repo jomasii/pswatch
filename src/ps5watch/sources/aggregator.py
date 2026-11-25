@@ -27,6 +27,16 @@ def normalize_store(name: str) -> str:
     return re.sub(r"[^a-z0-9 ]", "", name.lower()).strip()
 
 
+def _parse_price(value) -> Decimal | None:
+    """Aceita número ou texto simples ('3599.9'); ignora zero, negativo e formatos ambíguos."""
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, str) and not re.fullmatch(r"\d+(\.\d+)?", value.strip()):
+        return None
+    price = Decimal(str(value))
+    return price if price.is_finite() and price > 0 else None
+
+
 def _product_offers(html: str) -> list[dict]:
     for block in _LD_JSON.findall(html):
         try:
@@ -48,20 +58,24 @@ def parse_aggregator_page(html: str, source: str, now: datetime, assume_slim: bo
         raise SourceError("página sem ofertas reconhecíveis (bloqueio ou layout mudou)")
     offers: dict[tuple, Offer] = {}
     for raw in raw_offers:
-        model = match_model(raw.get("name", ""), assume_slim=assume_slim)
-        price = raw.get("price")
-        if model is None or price is None or not raw.get("offeredBy"):
+        try:
+            model = match_model(raw.get("name", ""), assume_slim=assume_slim)
+            price = _parse_price(raw.get("price"))
+            if model is None or price is None or not raw.get("offeredBy"):
+                continue
+            offer = Offer(
+                model=model,
+                store=normalize_store(raw["offeredBy"]),
+                price_cash=price,
+                price_installment=None,
+                url=raw.get("url", ""),
+                source=source,
+                seen_at=now,
+                shipping_included=None,
+            )
+        except (TypeError, ValueError, AttributeError):
+            log.warning("oferta ignorada por formato inesperado: %r", raw)
             continue
-        offer = Offer(
-            model=model,
-            store=normalize_store(raw["offeredBy"]),
-            price_cash=Decimal(str(price)),
-            price_installment=None,
-            url=raw.get("url", ""),
-            source=source,
-            seen_at=now,
-            shipping_included=None,
-        )
         offers[(offer.model, offer.store, offer.price_cash)] = offer
     return list(offers.values())
 

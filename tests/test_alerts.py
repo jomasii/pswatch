@@ -30,12 +30,72 @@ def test_lower_price_alerts_again(cfg):
     assert kinds(msgs) == ["normal"]
 
 
-def test_rise_above_then_drop_alerts_again(cfg):
+def test_rise_above_then_drop_after_rearm_alerts_again(cfg):
     state = AlertState()
     _, state = run([make_offer(price="3950")], state, T0, cfg)
     msgs, state = run([make_offer(price="4100")], state, T0 + timedelta(seconds=45), cfg)
     assert msgs == []
+    later = T0 + timedelta(seconds=45 + cfg.rearm_after_s)
+    msgs, state = run([make_offer(price="4100")], state, later, cfg)
+    assert msgs == []
+    msgs, _ = run([make_offer(price="3950")], state, later + timedelta(seconds=45), cfg)
+    assert kinds(msgs) == ["normal"]
+
+
+def test_quick_return_to_same_price_does_not_realert(cfg):
+    state = AlertState()
+    _, state = run([make_offer(price="3950")], state, T0, cfg)
+    msgs, state = run([make_offer(price="4100")], state, T0 + timedelta(seconds=45), cfg)
     msgs, _ = run([make_offer(price="3950")], state, T0 + timedelta(seconds=90), cfg)
+    assert msgs == []
+
+
+def test_flapping_cheapest_offer_does_not_flood_max(cfg):
+    state, sent = AlertState(), 0
+    for i in range(14):
+        offers = [make_offer(price="3499"), make_offer(price="4200", store="amazon")] if i % 2 == 0 else [
+            make_offer(price="4200", store="amazon")
+        ]
+        msgs, state = run(offers, state, T0 + timedelta(seconds=45 * i), cfg)
+        sent += len([m for m in msgs if m.kind == "max"])
+    assert sent <= cfg.max_repeats
+
+
+def test_flapping_inside_band_does_not_resend_normal(cfg):
+    state, sent = AlertState(), 0
+    for i in range(10):
+        offers = [make_offer(price="3800"), make_offer(price="3900", store="amazon")] if i % 2 == 0 else [
+            make_offer(price="3900", store="amazon")
+        ]
+        msgs, state = run(offers, state, T0 + timedelta(seconds=45 * i), cfg)
+        sent += len(msgs)
+    assert sent == 1
+
+
+def test_cheaper_offer_gone_for_good_rearms_after_cooldown(cfg):
+    state = AlertState()
+    _, state = run([make_offer(price="3900")], state, T0, cfg)
+    msgs, state = run([make_offer(price="3950")], state, T0 + timedelta(seconds=45), cfg)
+    assert msgs == []
+    later = T0 + timedelta(seconds=45 + cfg.rearm_after_s)
+    msgs, state = run([make_offer(price="3950")], state, later, cfg)
+    assert msgs == []
+    msgs, _ = run([make_offer(price="3920")], state, later + timedelta(seconds=45), cfg)
+    assert kinds(msgs) == ["normal"]
+
+
+def test_suspect_offer_does_not_hide_real_deal(cfg):
+    offers = [make_offer(price="1500", store="amazon"), make_offer(price="3499")]
+    msgs, state = run(offers, AlertState(), T0, cfg)
+    assert sorted(kinds(msgs)) == ["max", "suspect"]
+    msgs, _ = run(offers, state, T0 + timedelta(seconds=45), cfg)
+    assert msgs == []
+
+
+def test_suspect_does_not_swallow_later_normal_alert(cfg):
+    msgs, state = run([make_offer(price="1500")], AlertState(), T0, cfg)
+    assert kinds(msgs) == ["suspect"]
+    msgs, _ = run([make_offer(price="3799")], state, T0 + timedelta(seconds=45), cfg)
     assert kinds(msgs) == ["normal"]
 
 
@@ -92,12 +152,14 @@ def test_store_not_allowed_is_ignored(cfg):
     assert msgs == []
 
 
-def test_rise_within_band_then_new_low_alerts(cfg):
+def test_rise_within_band_then_only_a_real_new_low_alerts(cfg):
     state = AlertState()
     _, state = run([make_offer(price="3900")], state, T0, cfg)
     msgs, state = run([make_offer(price="3950")], state, T0 + timedelta(seconds=45), cfg)
     assert msgs == []
-    msgs, _ = run([make_offer(price="3920")], state, T0 + timedelta(seconds=90), cfg)
+    msgs, state = run([make_offer(price="3920")], state, T0 + timedelta(seconds=90), cfg)
+    assert msgs == []
+    msgs, _ = run([make_offer(price="3850")], state, T0 + timedelta(seconds=135), cfg)
     assert kinds(msgs) == ["normal"]
 
 
