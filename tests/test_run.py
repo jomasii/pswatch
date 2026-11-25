@@ -1,6 +1,8 @@
 from datetime import timedelta
 from decimal import Decimal
 
+import pytest
+
 from conftest import T0, make_offer
 from ps5watch.alerts import AlertState
 from ps5watch.health import HealthState
@@ -59,8 +61,27 @@ def test_run_once_does_not_commit_identical_offers_every_check(cfg):
     run_once(sources, store, tg, cfg, T0 + timedelta(seconds=90))
     assert store.saves == 1
     run_once(sources, store, tg, cfg, T0 + timedelta(seconds=300))
-    assert store.saves == 2  # batimento de 5 min
-    assert store.snapshot["checked_at"] == (T0 + timedelta(seconds=300)).isoformat()
+    assert store.saves == 1
+    run_once(sources, store, tg, cfg, T0 + timedelta(seconds=600))
+    assert store.saves == 2  # batimento de 10 min
+    assert store.snapshot["checked_at"] == (T0 + timedelta(seconds=600)).isoformat()
+
+
+@pytest.mark.parametrize("bad", [[1, 2], {"checked_at": "2026-11-27T12:00:00", "offers": []}, {"offers": ["x"]}])
+def test_run_once_saves_alert_state_even_if_old_snapshot_is_corrupt(cfg, bad):
+    store, tg = MemoryStore(), FakeTelegram()
+    store.snapshot = bad
+    sources = [FakeSource("zoom", [make_offer(price="3900")])]
+    run_once(sources, store, tg, cfg, T0)
+    run_once(sources, store, tg, cfg, T0 + timedelta(seconds=45))
+    assert len(tg.sent) == 1  # alerta não repete: o estado foi salvo
+
+
+def test_run_once_link_only_change_waits_for_heartbeat(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    run_once([FakeSource("zoom", [make_offer(price="4500", url="https://a")])], store, tg, cfg, T0)
+    run_once([FakeSource("zoom", [make_offer(price="4500", url="https://b")])], store, tg, cfg, T0 + timedelta(seconds=45))
+    assert store.saves == 1
 
 
 def test_run_once_publishes_empty_snapshot_when_no_offers(cfg):

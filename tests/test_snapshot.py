@@ -61,7 +61,8 @@ def test_snapshot_changed_rules(cfg):
     assert snapshot_changed(None, old, T0) is True
     same = build_snapshot([make_offer(price="3950")], {}, cfg, T0 + timedelta(seconds=60))
     assert snapshot_changed(old, same, T0 + timedelta(seconds=60)) is False
-    assert snapshot_changed(old, same, T0 + timedelta(seconds=300)) is True
+    assert snapshot_changed(old, same, T0 + timedelta(seconds=599)) is False
+    assert snapshot_changed(old, same, T0 + timedelta(seconds=600)) is True
     other = build_snapshot([make_offer(price="3900")], {}, cfg, T0 + timedelta(seconds=60))
     assert snapshot_changed(old, other, T0 + timedelta(seconds=60)) is True
 

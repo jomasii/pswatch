@@ -96,9 +96,16 @@ def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source
     history_changed = record_history(history, plausible, now)
     caches_changed = [s.pop_dirty() for s in sources if hasattr(s, "pop_dirty")]
 
+    # O retrato do painel nunca pode impedir que o estado do alerta seja salvo.
+    snapshot, snapshot_dirty = None, False
     load_snapshot = getattr(store, "load_snapshot", None)
-    snapshot = build_snapshot(offers, history, cfg, now)
-    snapshot_dirty = load_snapshot is not None and snapshot_changed(load_snapshot(), snapshot, now)
+    if load_snapshot is not None:
+        try:
+            snapshot = build_snapshot(offers, history, cfg, now)
+            snapshot_dirty = snapshot_changed(load_snapshot(), snapshot, now)
+        except Exception:
+            log.exception("retrato das ofertas falhou; seguindo sem ele")
+            snapshot, snapshot_dirty = None, False
 
     changed = (
         history_changed
@@ -107,7 +114,8 @@ def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source
         or new_alert.to_dict() != old_alert
         or new_health.to_dict() != old_health
     )
-    if snapshot_dirty:
+    if changed and snapshot is not None:
+        # já vai haver commit: aproveita para levar o retrato atualizado
         store.save(new_alert, new_health, history, changed, snapshot=snapshot)
     else:
         store.save(new_alert, new_health, history, changed)

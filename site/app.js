@@ -1,10 +1,14 @@
 "use strict";
 
 const API = "https://api.github.com/repos/jomasii/pswatch/contents/";
+const RAW = "https://raw.githubusercontent.com/jomasii/pswatch/data/";
 const BRANCH = "data";
-const OFFERS_EVERY_MS = 30 * 1000;
+// Sem login o GitHub permite 60 consultas/h por IP (respostas 304 também contam):
+// 75 s dá 48/h e deixa folga; perto do limite a página espera o reset.
+const OFFERS_EVERY_MS = 75 * 1000;
 const HISTORY_EVERY_MS = 5 * 60 * 1000;
-const STALE_S = 600;
+const RATE_RESERVE = 3;
+const STALE_S = 900;
 const ALERT = 4000;
 const MAX_ALERT = 3600;
 const NEAR = 4300;
@@ -24,7 +28,7 @@ const FILTERS = [
 ];
 const PALETTE = ["#58a6ff", "#3fb950", "#bc8cff", "#f0883e", "#39c5cf", "#ff7b72", "#8b949e"];
 
-const state = { offers: null, history: {}, slow: false, filter: "all", etags: {}, charts: [] };
+const state = { offers: null, history: {}, slow: false, filter: "all", etags: {}, charts: [], apiPausedUntil: 0 };
 
 // ---------- helpers puros ----------
 const brl = (n) => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -82,6 +86,7 @@ function episodes(history) {
   for (const [model, stores] of Object.entries(history || {})) {
     if (!MODELS[model]) continue;
     for (const [store, points] of Object.entries(stores)) {
+      if (!STORE_NAMES[store]) continue; // só lojas aceitas (mesma lista do alerta)
       let cur = null;
       for (const p of points) {
         const price = Number(p[1]);
@@ -141,30 +146,56 @@ function heroFor(model, offers) {
 // Em teste local (localhost) lê só os arquivos da própria pasta.
 const LOCAL = ["localhost", "127.0.0.1"].includes(location.hostname);
 
-async function fetchJson(name) {
-  try {
-    if (LOCAL) throw new Error("local");
-    const headers = { Accept: "application/vnd.github.raw" };
-    const cached = state.etags[name];
-    if (cached) headers["If-None-Match"] = cached.etag;
-    const res = await fetch(`${API}${name}?ref=${BRANCH}`, { headers, cache: "no-store" });
-    if (res.status === 304 && cached) { state.slow = false; return cached.body; }
-    if (res.status === 404) { state.slow = false; return null; }
-    if (!res.ok) throw new Error(`API ${res.status}`);
-    const body = await res.json();
-    const etag = res.headers.get("ETag");
-    if (etag) state.etags[name] = { etag, body };
-    state.slow = false;
-    return body;
-  } catch (e) {
-    state.slow = !LOCAL;
-    try {
-      const res = await fetch(name, { cache: "no-store" });
-      return res.ok ? await res.json() : null;
-    } catch (e2) {
-      return null;
-    }
+function noteRateLimit(res) {
+  const remaining = Number(res.headers.get("X-RateLimit-Remaining"));
+  const reset = Number(res.headers.get("X-RateLimit-Reset"));
+  if (res.headers.get("X-RateLimit-Remaining") !== null && remaining <= RATE_RESERVE && reset) {
+    state.apiPausedUntil = reset * 1000;
   }
+}
+
+async function fetchApi(name) {
+  const headers = { Accept: "application/vnd.github.raw" };
+  const cached = state.etags[name];
+  if (cached) headers["If-None-Match"] = cached.etag;
+  const res = await fetch(`${API}${name}?ref=${BRANCH}`, { headers, cache: "no-store" });
+  noteRateLimit(res);
+  if (res.status === 304 && cached) return cached.body;
+  if (res.status === 404) return null;
+  if (res.status === 403 || res.status === 429) {
+    state.apiPausedUntil = Math.max(state.apiPausedUntil, Date.now() + 10 * 60 * 1000);
+  }
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  const body = await res.json();
+  const etag = res.headers.get("ETag");
+  if (etag) state.etags[name] = { etag, body };
+  return body;
+}
+
+async function fetchPlain(url) {
+  const res = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// offers.json: API (quase ao vivo) → raw.githubusercontent (até ~5 min) → cópia do Pages.
+// history.json não precisa ser ao vivo: vai direto pelo raw, sem gastar consultas da API.
+async function fetchJson(name, { live = false } = {}) {
+  if (LOCAL) {
+    try { return await fetchPlain(name); } catch (e) { return null; }
+  }
+  if (live && Date.now() >= state.apiPausedUntil) {
+    try {
+      const body = await fetchApi(name);
+      state.slow = false;
+      return body;
+    } catch (e) { /* cai para as cópias */ }
+  }
+  if (live) state.slow = true;
+  for (const url of [RAW + name, name]) {
+    try { return await fetchPlain(url); } catch (e) { /* tenta a próxima */ }
+  }
+  return null;
 }
 
 // ---------- desenho ----------
@@ -178,7 +209,7 @@ function renderLive() {
     return;
   }
   const age = (Date.now() - Date.parse(checked)) / 1000;
-  const slow = state.slow ? " · modo lento (cópia do site, pode atrasar alguns min)" : "";
+  const slow = state.slow ? " · modo lento (limite do GitHub; pode atrasar até ~5 min)" : "";
   if (age > STALE_S) {
     box.className = "stale";
     text.textContent = `Vigia parado? Última checagem ${fmtAgo(age)}${slow}`;
@@ -341,7 +372,7 @@ function renderOffers() {
 
 // ---------- laço ----------
 async function refreshOffers() {
-  const doc = await fetchJson("offers.json");
+  const doc = await fetchJson("offers.json", { live: true });
   if (doc && Array.isArray(doc.offers)) state.offers = doc;
   renderOffers();
 }

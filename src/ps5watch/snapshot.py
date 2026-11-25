@@ -7,7 +7,9 @@ from decimal import Decimal
 from ps5watch.config import Config
 from ps5watch.models import Offer
 
-HEARTBEAT_S = 300
+HEARTBEAT_S = 600
+# Campos que, ao mudar, gravam na hora; link, título e cupom esperam o batimento ou outra gravação.
+KEY_FIELDS = ("model", "store", "price", "bundle")
 
 
 def _since(history: dict, offer: Offer, now: datetime) -> str:
@@ -46,16 +48,15 @@ def build_snapshot(offers: list[Offer], history: dict, cfg: Config, now: datetim
 
 
 def snapshot_changed(old: dict | None, new: dict, now: datetime, heartbeat_s: int = HEARTBEAT_S) -> bool:
-    if not old:
+    if not isinstance(old, dict):
         return True
-    # "since" acompanha o preço; comparar sem ele evita gravar só porque o relógio andou
-    def strip(offers):
-        return [{k: v for k, v in o.items() if k != "since"} for o in offers or []]
 
-    if strip(old.get("offers")) != strip(new["offers"]):
+    def keys(offers):
+        return [tuple(o.get(k) for k in KEY_FIELDS) if isinstance(o, dict) else None for o in offers or []]
+
+    if keys(old.get("offers")) != keys(new["offers"]):
         return True
     try:
-        last = datetime.fromisoformat(old["checked_at"])
+        return (now - datetime.fromisoformat(old["checked_at"])).total_seconds() >= heartbeat_s
     except (KeyError, TypeError, ValueError):
         return True
-    return (now - last).total_seconds() >= heartbeat_s

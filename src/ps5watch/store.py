@@ -78,9 +78,10 @@ class DataStore:
     def load_snapshot(self) -> dict | None:
         path = self._dir / "offers.json"
         try:
-            return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
-        except ValueError:
+            data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        except (OSError, ValueError):
             return None
+        return data if isinstance(data, dict) else None
 
     def save(
         self, alert: AlertState, health: HealthState, history: dict, changed: bool, snapshot: dict | None = None
