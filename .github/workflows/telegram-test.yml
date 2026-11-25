@@ -16,5 +16,6 @@ jobs:
         run: |
           curl --fail-with-body -sS "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=✅ Teste do monitor de PS5: o bot está conectado." > /dev/null
+            --data-urlencode "text=✅ Teste do monitor de PS5: o bot está conectado."
+          echo
           echo "Mensagem enviada."
