@@ -23,10 +23,12 @@ def _since(history: dict, offer: Offer, now: datetime) -> str:
 
 def build_snapshot(offers: list[Offer], history: dict, cfg: Config, now: datetime) -> dict:
     rows: dict[tuple, dict] = {}
-    for o in sorted(offers, key=lambda o: (o.price_cash, o.store)):
+    # Zoom e Buscapé repetem as mesmas ofertas: uma linha por modelo+loja+preço+combo, Zoom primeiro.
+    source_rank = {"zoom": 0, "buscape": 1}
+    for o in sorted(offers, key=lambda o: (o.price_cash, o.store, source_rank.get(o.source, 2))):
         if o.price_cash < cfg.suspect_floor or o.store.lower() not in cfg.allowed_stores:
             continue
-        key = (o.model.value, o.store, o.price_cash, o.url)
+        key = (o.model.value, o.store, o.price_cash, o.bundle)
         if key in rows:
             continue
         rows[key] = {

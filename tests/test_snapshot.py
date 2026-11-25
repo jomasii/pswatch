@@ -27,6 +27,15 @@ def test_snapshot_drops_exact_duplicates(cfg):
     assert len(build_snapshot(offers, {}, cfg, T0)["offers"]) == 1
 
 
+def test_snapshot_same_offer_from_zoom_and_buscape_appears_once_preferring_zoom(cfg):
+    offers = [
+        make_offer(price="4369.05", url="https://www.buscape.com.br/x?highlightedItemId=1", source="buscape"),
+        make_offer(price="4369.05", url="https://www.zoom.com.br/x?highlightedItemId=1", source="zoom"),
+    ]
+    [only] = build_snapshot(offers, {}, cfg, T0)["offers"]
+    assert only["source"] == "zoom"
+
+
 def test_snapshot_since_uses_start_of_current_price_run(cfg):
     history = {"slim_disc": {"kabum": [
         [(T0 - timedelta(hours=3)).isoformat(), "4200", "u"],

@@ -3,30 +3,103 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Preço do PS5</title>
+  <title>Vigia do PS5</title>
   <style>
-    :root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --card:#f5f5f7; --line:#d6d6db; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#111; --fg:#f0f0f0; --muted:#9a9a9a; --card:#1c1c1e; --line:#333; }
+    :root {
+      --bg:#0d1117; --panel:#161b22; --line:#30363d; --line-soft:#21262d;
+      --fg:#e6edf3; --fg-soft:#c9d1d9; --muted:#8b949e; --faint:#6e7681;
+      --green:#3fb950; --btn:#238636; --btn-hover:#2ea043; --link:#58a6ff;
+      --amber:#d29922; --red:#f85149; --blue:#1f6feb;
+      --combo-bg:#1f2a44; --combo-fg:#79c0ff; --promo-bg:#3a2a0b; --promo-fg:#e3b341;
     }
-    body { margin:0; padding:16px; background:var(--bg); color:var(--fg);
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg:#f6f8fa; --panel:#ffffff; --line:#d0d7de; --line-soft:#eaeef2;
+        --fg:#1f2328; --fg-soft:#31363c; --muted:#59636e; --faint:#818b98;
+        --green:#1a7f37; --btn:#1f883d; --btn-hover:#1a7f37; --link:#0969da;
+        --amber:#9a6700; --red:#cf222e; --blue:#0969da;
+        --combo-bg:#ddf4ff; --combo-fg:#0550ae; --promo-bg:#fff8c5; --promo-fg:#7d4e00;
+      }
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg);
            font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
-    main { max-width:900px; margin:0 auto; }
-    h1 { font-size:1.4rem; margin:0 0 4px; }
-    h2 { font-size:1.1rem; margin:24px 0 8px; }
-    p.muted { color:var(--muted); margin:0 0 12px; font-size:.9rem; }
-    .card { background:var(--card); border-radius:10px; padding:12px; margin-bottom:12px; }
-    table { width:100%; border-collapse:collapse; font-size:.95rem; }
-    td, th { text-align:left; padding:6px 4px; border-bottom:1px solid var(--line); }
-    td.num, th.num { text-align:right; }
-    canvas { width:100%; max-height:320px; }
+    main { max-width:1100px; margin:0 auto; padding:20px 16px 60px; }
+    .top { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+    h1 { margin:0; font-size:1.35rem; }
+    h2 { font-size:1rem; margin:28px 0 10px; color:var(--fg-soft); }
+    h2 small { color:var(--muted); font-weight:400; }
+    #live { font-size:.85rem; color:var(--muted); display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:8px; }
+    #live .dot { width:9px; height:9px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); flex:none; }
+    #live.stale { background:rgba(248,81,73,.12); color:var(--red); }
+    #live.stale .dot { background:var(--red); box-shadow:0 0 8px var(--red); }
+    .limits { color:var(--muted); font-size:.85rem; margin:-8px 0 16px; }
+
+    .heroes { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .hero { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+    .hero.near { border-color:var(--amber); }
+    .hero.hit { border-color:var(--red); box-shadow:0 0 0 1px var(--red) inset; }
+    .hero .model { color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; }
+    .hero .price { font-size:2.2rem; font-weight:800; margin:6px 0 2px; font-variant-numeric:tabular-nums; }
+    .hero .store { color:var(--fg-soft); margin-bottom:10px; }
+    .hero .gap { font-size:.88rem; color:var(--muted); margin-bottom:12px; }
+    .hero.near .gap { color:var(--amber); }
+    .hero.hit .gap { color:var(--red); font-weight:700; }
+    .btn { display:inline-block; background:var(--btn); color:#fff; text-decoration:none; font-weight:700; padding:9px 16px; border-radius:8px; }
+    .btn:hover { background:var(--btn-hover); }
+
+    .filters { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+    .chip { padding:5px 12px; border-radius:20px; background:var(--line-soft); color:var(--fg-soft); font-size:.85rem; border:0; cursor:pointer; font:inherit; }
+    .chip.on { background:var(--blue); color:#fff; }
+
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--panel); }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:10px 12px; border-bottom:1px solid var(--line-soft); text-align:left; font-size:.92rem; white-space:nowrap; }
+    tr:last-child td { border-bottom:0; }
+    th { color:var(--muted); font-weight:600; font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; }
+    td.rank { color:var(--muted); font-weight:700; width:36px; }
+    td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+    td.num { font-weight:700; }
+    td.title { white-space:normal; color:var(--muted); font-size:.82rem; max-width:360px; }
+    .tag { font-size:.72rem; padding:2px 7px; border-radius:20px; margin-left:6px; white-space:nowrap; }
+    .tag.combo { background:var(--combo-bg); color:var(--combo-fg); }
+    .tag.promo { background:var(--promo-bg); color:var(--promo-fg); }
+    .muted { color:var(--muted); }
+    a.link { color:var(--link); text-decoration:none; font-weight:600; }
+    a.link:hover { text-decoration:underline; }
+    a.link.old { color:var(--muted); }
+    .empty { color:var(--muted); padding:14px; }
+
+    .charts { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .chart-card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px; }
+    .chart-card h3 { margin:0 0 8px; font-size:.9rem; color:var(--fg-soft); }
+    .chart-box { position:relative; height:260px; }
+
+    @media (max-width:760px) {
+      .heroes, .charts { grid-template-columns:1fr; }
+      .hero .price { font-size:1.9rem; }
+    }
   </style>
 </head>
 <body>
 <main>
-  <h1>Preço do PS5 Slim</h1>
-  <p class="muted" id="status">Carregando…</p>
-  <section id="models"></section>
+  <div class="top">
+    <h1>🎮 Vigia do PS5 Slim</h1>
+    <div id="live"><span class="dot"></span><span id="live-text">Carregando…</span></div>
+  </div>
+  <p class="limits">Alerta abaixo de R$ 4.000 · Alerta máximo abaixo de R$ 3.600 · preços à vista/Pix, frete não incluído</p>
+
+  <section class="heroes" id="heroes"></section>
+
+  <h2>🏆 Ranking das ofertas de agora <small>— do menor para o maior preço</small></h2>
+  <div class="filters" id="filters"></div>
+  <div class="table-wrap" id="now"></div>
+
+  <h2>📉 Menores preços já vistos <small>— referência; o link pode já ter voltado ao preço normal</small></h2>
+  <div class="table-wrap" id="lows"></div>
+
+  <h2>📈 Histórico</h2>
+  <section class="charts" id="charts"></section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="app.js"></script>
