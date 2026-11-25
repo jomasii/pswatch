@@ -53,6 +53,47 @@ class FakeTelegram:
         return self.ok
 
 
+class PausedSource(FakeSource):
+    def __init__(self, name, active):
+        super().__init__(name, [])
+        self._active = active
+        self.fetches = 0
+        self.dirty = False
+
+    def active(self):
+        return self._active
+
+    def fetch(self):
+        self.fetches += 1
+        return super().fetch()
+
+    def pop_dirty(self):
+        dirty, self.dirty = self.dirty, False
+        return dirty
+
+
+def test_run_once_skips_paused_source_without_health_warning(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    paused = PausedSource("mercadolivre", active=False)
+    sources = [FakeSource("zoom", [make_offer(price="4500")]), paused]
+    run_once(sources, store, tg, cfg, T0)
+    run_once(sources, store, tg, cfg, T0 + timedelta(minutes=11))
+    assert paused.fetches == 0
+    assert not any("mercadolivre" in text for text in tg.sent)
+
+
+def test_run_once_saves_when_a_source_cache_changed(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    source = PausedSource("mercadolivre", active=True)
+    run_once([source], store, tg, cfg, T0)
+    saves = store.saves
+    run_once([source], store, tg, cfg, T0 + timedelta(seconds=45))
+    assert store.saves == saves  # nada mudou
+    source.dirty = True
+    run_once([source], store, tg, cfg, T0 + timedelta(seconds=90))
+    assert store.saves == saves + 1
+
+
 def test_run_once_sends_alert_and_marks_sent_only_if_telegram_ok(cfg):
     store, tg = MemoryStore(), FakeTelegram(ok=False)
     sources = [FakeSource("zoom", [make_offer(price="3900")])]

@@ -106,6 +106,31 @@ def test_match_model_excludes_imports_packs_and_limited(title):
 @pytest.mark.parametrize(
     "title",
     [
+        "Unidade De Disco Playstation 5 Slim Cor Branco",
+        "Consola Sony Playstation 5 Slim Digital 1tb Ssd 4k 825gb Blanco",
+        "Consola Sony Playstation 5 Ps5 Slim Disc Edition Ghost Of Sumi-e",
+        "Consola Sony Ps5 - Slim - Pacote Nba 2k25 - Edição digital",
+    ],
+)
+def test_classify_rejects_mercadolivre_disc_drive_and_spanish_imports(title):
+    assert classify(title) is None
+
+
+@pytest.mark.parametrize(
+    "title, expected",
+    [
+        ("Pacote Playstation 5 Slimdigital Edition Fortnite Sony White Branco", (ModelKey.SLIM_DIGITAL, True)),
+        ("Sony Playstation 5 Playstation 5 Slimdisk 1tb Entrega Rapida", (ModelKey.SLIM_DISC, False)),
+        ("Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony", (ModelKey.SLIM_DIGITAL, False)),
+    ],
+)
+def test_classify_real_mercadolivre_titles(title, expected):
+    assert classify(title) == expected
+
+
+@pytest.mark.parametrize(
+    "title",
+    [
         "PlayStation 5 Pro 2TB",
         "Controle DualSense PS5",
         "Console PS5 Slim Usado",

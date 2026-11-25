@@ -29,6 +29,9 @@ def _fetch_all(sources) -> tuple[list[Offer], dict[str, str | None]]:
     offers: list[Offer] = []
     results: dict[str, str | None] = {}
     for source in sources:
+        active = getattr(source, "active", None)
+        if active is not None and not active():
+            continue  # fonte pausada (fora da janela ou sem orçamento): sem aviso de saúde
         try:
             found = source.fetch()
             error = None
@@ -90,7 +93,13 @@ def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source
 
     plausible = [o for o in offers if o.price_cash >= cfg.suspect_floor]
     history_changed = record_history(history, plausible, now)
-    changed = history_changed or new_alert.to_dict() != old_alert or new_health.to_dict() != old_health
+    caches_changed = [s.pop_dirty() for s in sources if hasattr(s, "pop_dirty")]
+    changed = (
+        history_changed
+        or any(caches_changed)
+        or new_alert.to_dict() != old_alert
+        or new_health.to_dict() != old_health
+    )
     store.save(new_alert, new_health, history, changed)
 
 
@@ -122,7 +131,7 @@ def main() -> None:
     session = requests.Session()
     telegram = TelegramClient(os.environ["TELEGRAM_TOKEN"], os.environ["TELEGRAM_CHAT_ID"], session)
     store = DataStore(data_dir, git_runner(data_dir))
-    sources = build_sources(root / "config.yaml", session, lambda: datetime.now(timezone.utc))
+    sources = build_sources(root / "config.yaml", session, lambda: datetime.now(timezone.utc), data_dir)
     coupons = build_coupon_source(root / "config.yaml", session, lambda: datetime.now(timezone.utc))
     run_loop(sources, store, telegram, cfg, lambda: datetime.now(timezone.utc), time.sleep, coupons)
 

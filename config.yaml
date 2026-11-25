@@ -44,7 +44,17 @@ sources:
       # combos com jogos
       - https://www.buscape.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7
       - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k
+  # Mercado Livre via robô do Apify (cobra por oferta: ~US$ 0,024 por consulta de 20).
+  # Só consulta dentro das janelas abaixo (horário de Brasília) e para de vez
+  # depois de max_runs consultas, para não passar do crédito grátis de US$ 5.
   mercadolivre:
-    enabled: false
+    enabled: true
+    interval_s: 600
+    max_items: 20
+    max_charge_usd: "0.05"
+    max_runs: 160
+    windows:
+      - {from: "2026-11-25T12:20:00-03:00", until: "2026-11-25T12:40:00-03:00"}  # teste ao vivo
+      - {from: "2026-11-27T00:00:00-03:00", until: "2026-11-28T00:00:00-03:00"}  # Black Friday
   coupons:
     urls: {}

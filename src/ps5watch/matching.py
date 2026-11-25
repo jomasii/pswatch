@@ -12,7 +12,9 @@ EXCLUDE_WORDS = {
     "limitada", "limitado", "limited", "anniversary", "aniversario", "ouro",
     "skin", "adesivo", "base", "carregador", "carregamento", "recondicionado",
     "recondicionada", "vitrine", "open", "japonesa", "japones", "cabo",
-    "headset", "fone", "volante", "drive",
+    "headset", "fone", "volante", "drive", "unidade",
+    # anúncios em espanhol no Mercado Livre são compras internacionais
+    "consola", "blanco", "paquete", "edicion",
 }
 # Console vendido junto com jogos: aceito, mas marcado como combo.
 BUNDLE_WORDS = {"jogo", "jogos", "bundle", "combo", "pacote", "kit", "pack"}
@@ -32,7 +34,9 @@ _FOR_CONSOLE = re.compile(r"\bpara (?:o |a )?(?:console|ps ?5|playstation)")
 def _normalize(title: str) -> str:
     text = unicodedata.normalize("NFKD", title.lower())
     text = "".join(c for c in text if not unicodedata.combining(c))
-    return text.replace("®", " ").replace("™", " ")
+    text = text.replace("®", " ").replace("™", " ")
+    # "Slimdigital" / "Slimdisk" aparecem colados em títulos do Mercado Livre
+    return re.sub(r"\bslim(?=digital|disk|disc)", "slim ", text)
 
 
 def classify(title: str, assume_slim: bool = False) -> tuple[ModelKey, bool] | None:
