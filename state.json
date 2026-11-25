@@ -23,6 +23,54 @@
   "buscape": {
    "failing_since": null,
    "alerted": false
+  },
+  "zoom:console-playstation-5-slim-1tb-sony-4k-hdr": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "zoom:console-playstation-5-slim-825gb-sony-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "zoom:pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "zoom:console-playstation-5-slim-1-tb-sony-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "zoom:playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "zoom:console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape:console-playstation-5-slim-1tb-sony-4k-hdr": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape:console-playstation-5-slim-825gb-sony-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape:pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape:console-playstation-5-slim-1-tb-sony-4k": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape:playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape:console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k": {
+   "failing_since": null,
+   "alerted": false
   }
  }
 }
