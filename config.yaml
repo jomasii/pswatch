@@ -54,7 +54,6 @@ sources:
     max_charge_usd: "0.05"
     max_runs: 160
     windows:
-      - {from: "2026-11-25T12:20:00-03:00", until: "2026-11-25T12:40:00-03:00"}  # teste ao vivo
       - {from: "2026-11-27T00:00:00-03:00", until: "2026-11-28T00:00:00-03:00"}  # Black Friday
   coupons:
     urls: {}
