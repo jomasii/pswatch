@@ -11,6 +11,7 @@ from ps5watch.config import Config, load_config
 from ps5watch.formatting import format_message
 from ps5watch.health import update_health
 from ps5watch.models import ModelKey, Offer
+from ps5watch.snapshot import build_snapshot, snapshot_changed
 from ps5watch.store import low_30d, record_history
 
 log = logging.getLogger("ps5watch")
@@ -94,13 +95,22 @@ def run_once(sources, store, telegram, cfg: Config, now: datetime, coupon_source
     plausible = [o for o in offers if o.price_cash >= cfg.suspect_floor]
     history_changed = record_history(history, plausible, now)
     caches_changed = [s.pop_dirty() for s in sources if hasattr(s, "pop_dirty")]
+
+    load_snapshot = getattr(store, "load_snapshot", None)
+    snapshot = build_snapshot(offers, history, cfg, now)
+    snapshot_dirty = load_snapshot is not None and snapshot_changed(load_snapshot(), snapshot, now)
+
     changed = (
         history_changed
+        or snapshot_dirty
         or any(caches_changed)
         or new_alert.to_dict() != old_alert
         or new_health.to_dict() != old_health
     )
-    store.save(new_alert, new_health, history, changed)
+    if snapshot_dirty:
+        store.save(new_alert, new_health, history, changed, snapshot=snapshot)
+    else:
+        store.save(new_alert, new_health, history, changed)
 
 
 def run_loop(sources, store, telegram, cfg: Config, clock, sleep, coupon_source=None) -> None:

@@ -75,9 +75,22 @@ class DataStore:
         history = json.loads(history_file.read_text(encoding="utf-8")) if history_file.exists() else {}
         return alert, health, history
 
-    def save(self, alert: AlertState, health: HealthState, history: dict, changed: bool) -> None:
+    def load_snapshot(self) -> dict | None:
+        path = self._dir / "offers.json"
+        try:
+            return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        except ValueError:
+            return None
+
+    def save(
+        self, alert: AlertState, health: HealthState, history: dict, changed: bool, snapshot: dict | None = None
+    ) -> None:
         if not changed:
             return
+        if snapshot is not None:
+            (self._dir / "offers.json").write_text(
+                json.dumps(snapshot, indent=1, ensure_ascii=False), encoding="utf-8"
+            )
         (self._dir / "state.json").write_text(
             json.dumps({"alert": alert.to_dict(), "health": health.to_dict()}, indent=1), encoding="utf-8"
         )

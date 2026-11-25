@@ -88,6 +88,22 @@ def test_save_commits_and_pushes_when_changed(tmp_path):
     assert json.loads((tmp_path / "history.json").read_text(encoding="utf-8")) == {"x": 1}
 
 
+def test_save_writes_offers_json_and_load_snapshot_reads_it(tmp_path):
+    store = DataStore(tmp_path, FakeRunner())
+    assert store.load_snapshot() is None
+    snap = {"checked_at": T0.isoformat(), "offers": []}
+    store.save(AlertState(), HealthState(), {}, changed=True, snapshot=snap)
+    assert DataStore(tmp_path, FakeRunner()).load_snapshot() == snap
+
+
+def test_save_without_snapshot_keeps_existing_offers_json(tmp_path):
+    store = DataStore(tmp_path, FakeRunner())
+    snap = {"checked_at": T0.isoformat(), "offers": []}
+    store.save(AlertState(), HealthState(), {}, changed=True, snapshot=snap)
+    store.save(AlertState(), HealthState(), {"x": 1}, changed=True)
+    assert store.load_snapshot() == snap
+
+
 def test_save_retries_push_after_conflict(tmp_path):
     runner = FakeRunner(fail_push_times=1)
     DataStore(tmp_path, runner).save(AlertState(), HealthState(), {}, changed=True)

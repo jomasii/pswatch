@@ -33,14 +33,41 @@ class MemoryStore:
     def __init__(self):
         self.alert, self.health, self.history = AlertState(), HealthState(), {}
         self.saves = 0
+        self.snapshot = None
 
     def load(self):
         return self.alert, self.health, self.history
 
-    def save(self, alert, health, history, changed):
+    def load_snapshot(self):
+        return self.snapshot
+
+    def save(self, alert, health, history, changed, snapshot=None):
         if changed:
             self.alert, self.health, self.history = alert, health, history
+            if snapshot is not None:
+                self.snapshot = snapshot
             self.saves += 1
+
+
+def test_run_once_does_not_commit_identical_offers_every_check(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    sources = [FakeSource("zoom", [make_offer(price="4500", url="https://k")])]
+    run_once(sources, store, tg, cfg, T0)
+    assert store.saves == 1
+    assert store.snapshot["offers"][0]["url"] == "https://k"
+    run_once(sources, store, tg, cfg, T0 + timedelta(seconds=45))
+    run_once(sources, store, tg, cfg, T0 + timedelta(seconds=90))
+    assert store.saves == 1
+    run_once(sources, store, tg, cfg, T0 + timedelta(seconds=300))
+    assert store.saves == 2  # batimento de 5 min
+    assert store.snapshot["checked_at"] == (T0 + timedelta(seconds=300)).isoformat()
+
+
+def test_run_once_publishes_empty_snapshot_when_no_offers(cfg):
+    store, tg = MemoryStore(), FakeTelegram()
+    store.snapshot = {"checked_at": T0.isoformat(), "offers": [{"price": "4500"}]}
+    run_once([FakeSource("zoom", error=SourceError("bloqueado"))], store, tg, cfg, T0 + timedelta(seconds=45))
+    assert store.snapshot["offers"] == []
 
 
 class FakeTelegram:
