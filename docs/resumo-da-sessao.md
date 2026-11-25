@@ -46,18 +46,18 @@ Uma aplicação web que mostre a variação de preço e avise quando o preço ca
 ### Custo real (conferido no painel do Apify)
 - O karamelo cobra **US$ 0,005 por resultado** (4x o que a página dizia).
 - Cada consulta tem teto de **US$ 0,05**, o que limita a 10 resultados.
-- Gasto até agora: **US$ 0,29** (teste dos dois robôs + 2 consultas ao vivo). Restam **US$ 4,71**.
+- Gasto até agora: **US$ 0,29** (teste dos dois robôs + 2 consultas ao vivo). Depois você conseguiu crédito extra: restam **US$ 8,71**.
 
 ### Agenda (horário de Brasília), definida em `config.yaml`
 | Período | Frequência | Consultas |
 |---|---|---|
 | Até sexta 27/11 00h | pausado (sem custo, sem aviso de falha) | 0 |
-| Sexta 27/11 (Black Friday) | a cada 25 min | ~58 |
+| Sexta 27/11 (Black Friday) | a cada 11 min | ~131 |
 | Sábado 28 e domingo 29 | a cada 6 h | ~8 |
 | Segunda 30/11 (Cyber Monday) | a cada 66 min | ~22 |
 | Depois de 01/12 00h | desligado | 0 |
 
-- Total: 88 consultas ≈ **US$ 4,40**. Trava de segurança: para de vez na **90ª consulta** (as 2 do teste contam).
+- Total: 161 consultas ≈ **US$ 8,05**. Trava de segurança: para de vez na **163ª consulta** (as 2 do teste contam). Com 11 min na sexta, a trava nunca é atingida antes da Cyber Monday.
 - Entre uma consulta e outra, as ofertas vêm de um cache (`mercadolivre.json` na branch `data`), então o alerta continua considerando o Mercado Livre.
 - Teste ao vivo em 25/11 (12h20–12h40): 2 consultas com o intervalo correto, 4 ofertas válidas, e nenhuma consulta depois do fim da janela.
 
