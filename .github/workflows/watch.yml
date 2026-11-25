@@ -49,9 +49,6 @@ jobs:
           git config user.name "ps5watch"
           git config user.email "ps5watch@users.noreply.github.com"
 
-      - name: Publicar página
-        run: python scripts/publish_site.py site data
-
       - name: Vigiar preços
         env:
           PYTHONPATH: src

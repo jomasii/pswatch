@@ -178,8 +178,9 @@ async function fetchPlain(url) {
   return res.json();
 }
 
-// offers.json: API (quase ao vivo) → raw.githubusercontent (até ~5 min) → cópia do Pages.
+// offers.json: API (quase ao vivo) → raw.githubusercontent (até ~5 min).
 // history.json não precisa ser ao vivo: vai direto pelo raw, sem gastar consultas da API.
+// O Pages publica só a página (index.html, app.js); os dados ficam no ramo data.
 async function fetchJson(name, { live = false } = {}) {
   if (LOCAL) {
     try { return await fetchPlain(name); } catch (e) { return null; }
@@ -192,10 +193,7 @@ async function fetchJson(name, { live = false } = {}) {
     } catch (e) { /* cai para as cópias */ }
   }
   if (live) state.slow = true;
-  for (const url of [RAW + name, name]) {
-    try { return await fetchPlain(url); } catch (e) { /* tenta a próxima */ }
-  }
-  return null;
+  try { return await fetchPlain(RAW + name); } catch (e) { return null; }
 }
 
 // ---------- desenho ----------
