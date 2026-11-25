@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-25T19:01:48.251691+00:00",
+ "checked_at": "2026-11-25T19:02:37.735374+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -21,7 +21,7 @@
    "title": "Console Playstation 5 Slim Digital Edition, 825GB, USB, HDMI, Branco",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-25T19:01:48.251691+00:00"
+   "since": "2026-11-25T19:02:37.735374+00:00"
   },
   {
    "model": "slim_digital",
@@ -35,17 +35,6 @@
    "since": "2026-11-25T11:21:16.367456+00:00"
   },
   {
-   "model": "slim_disc",
-   "store": "magazine luiza",
-   "price": "4621.75",
-   "url": "https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-1tb-sony-4k-hdr?highlightedItemId=1559548735",
-   "bundle": false,
-   "title": "Console PlayStation 5 Slim Disk 1TB Físico com Controle DualSense Bran",
-   "promo": "",
-   "source": "buscape",
-   "since": "2026-11-25T19:01:48.251691+00:00"
-  },
-  {
    "model": "slim_digital",
    "store": "amazon",
    "price": "4699.9",
@@ -54,7 +43,7 @@
    "title": "PlayStation®5 Slim Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-25T19:01:48.251691+00:00"
+   "since": "2026-11-25T19:02:37.735374+00:00"
   },
   {
    "model": "slim_disc",
@@ -87,7 +76,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-25T19:01:48.251691+00:00"
+   "since": "2026-11-25T19:02:37.735374+00:00"
   },
   {
    "model": "slim_disc",
@@ -98,7 +87,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-25T19:01:48.251691+00:00"
+   "since": "2026-11-25T19:02:37.735374+00:00"
   },
   {
    "model": "slim_digital",
@@ -120,7 +109,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-25T19:01:48.251691+00:00"
+   "since": "2026-11-25T19:02:37.735374+00:00"
   },
   {
    "model": "slim_disc",
@@ -131,7 +120,7 @@
    "title": "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Se",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-25T19:01:48.251691+00:00"
+   "since": "2026-11-25T19:02:37.735374+00:00"
   }
  ]
 }
