@@ -37,6 +37,8 @@ Uma aplicação web que mostre a variação de preço e avise quando o preço ca
   - os links abrem a página do Zoom/Buscapé com a oferta da loja destacada (mais um clique até a loja); no Mercado Livre, o anúncio direto;
   - se o GitHub limitar as consultas, entra em "modo lento" (atraso até ~5 min) e avisa na barra;
   - o histórico passou a guardar o link de cada preço; preços antigos aparecem como "sem link".
+  - conferido no site publicado com ofertas reais; o vigia rodou com sucesso no código novo (158 testes passando).
+  - o vigia publica um arquivo novo, `offers.json` (branch `data`), com as ofertas de agora; grava quando muda preço/loja/combo, ou a cada 10 min para mostrar que está vivo.
 
 ## 4. Estado em produção (verificado nos logs)
 - Zoom e Buscapé **abrem** a partir do GitHub Actions; 6 páginas em cada (4 do console e 2 de combos).
@@ -88,6 +90,21 @@ Use sempre dois dígitos: `2026-12-01`, não `2026-12-1`. Uma data inválida faz
 - Acessórios, recondicionados, vitrine e importados passavam como console → descartados.
 - "Disk + Controle DualSense" legítimo era descartado → agora aceito.
 
+### Revisão independente do painel ao vivo (25/11)
+Nada crítico. Cinco pontos importantes, todos corrigidos e testados:
+- **Limite do GitHub:** sem login, o GitHub conta todas as consultas (inclusive as sem mudança) no limite de 60/h — conferido no navegador. A 30 s, a página ficaria em modo lento metade de cada hora. Agora: ofertas a cada 75 s, histórico por outro caminho que não gasta consultas, e pausa automática perto do limite.
+- **Erro no arquivo do painel** podia impedir o vigia de salvar o estado e repetir o mesmo alerta no Telegram a cada 45 s → agora o vigia segue normalmente sem o arquivo.
+- **Batimento de 5 min** estourava o limite de ~10 publicações/h do GitHub Pages → 10 min (e aviso "parado" em 15 min).
+- **Mudança só de link/texto** (mesmo preço) gravava a cada checagem → espera a próxima gravação.
+- **Menores preços já vistos** mostrava lojas fora da lista aceita → filtrado.
+
+Escolhas feitas por mim (e o custo se estiverem erradas):
+- Uma linha por modelo+loja+preço+combo, preferindo o Zoom ao Buscapé (mesma oferta repetida). Custo: dois anúncios diferentes da mesma loja com o mesmo preço viram uma linha.
+- "Menores preços já vistos" agrupa por preço, com nº de vezes e tempo total no ar. Custo: um preço visto uma vez por muito tempo e um visto várias vezes só se distinguem pela contagem.
+- "Ainda no ar" só se a oferta estiver na lista atual (sem isso, o Mercado Livre pausado parecia ativo para sempre).
+- Quando o vigia já vai gravar por outro motivo, leva junto a lista de ofertas atualizada. Custo: um pouco mais de gravações.
+- Links levam à página do Zoom/Buscapé com a oferta destacada, não direto à loja. Custo: um clique a mais.
+
 ## 7. Pendências
 1. **Congelamento**: nenhuma mudança no código na sexta. Mudanças só até quinta à noite (26/11).
 2. **App oficial do Mercado Livre**: aguardando aprovação (até 10 dias); o `ml-probe` está pronto para quando sair. Provavelmente não chega a tempo.
@@ -95,8 +112,18 @@ Use sempre dois dígitos: `2026-12-01`, não `2026-12-1`. Uma data inválida faz
 4. **Menores adiados:** aviso de falha pode ser dado como enviado mesmo se o Telegram falhar; limite de 8 min da execução pode cortar uma checagem. (O nome "Amazon" foi conferido e casa normalmente.)
 5. Acabamento das mensagens: loja em minúsculas ("kabum", "mercado livre"); a linha "menor preço dos últimos 30 dias" mostra o próprio preço nos primeiros dias.
 6. Conferir na primeira alerta real se o preço é o à vista/Pix. No Mercado Livre o robô traz só o preço anunciado (normalmente igual ao Pix).
+7. **Detalhes do painel deixados para depois** (nenhum quebra nada):
+   - "No ar desde" de uma 2ª oferta da mesma loja volta a zero a cada 10 min;
+   - o gráfico estica até agora o último preço de lojas que sumiram (ex.: Mercado Livre pausado);
+   - destaques e tabela não ficam apagados quando a barra está vermelha;
+   - "Nenhuma oferta no ar" aparece por um instante antes de carregar;
+   - os limites R$ 4.000 / R$ 3.600 estão repetidos no código da página (mudar no `config.yaml` não muda a página);
+   - o desempate entre anúncios iguais depende da ordem de leitura.
+8. **Checagem final de quinta à noite:** `watch` verde; `telegram-test`; crédito do Apify; Mercado Livre pausado com `runs: 2`; painel com a barra verde.
 
 ## 8. Como conferir sozinho
+- Painel ao vivo: <https://jomasii.github.io/pswatch/> (barra verde = vigia ativo; vermelha = sem checagem há 15 min).
+- Ofertas atuais em texto: arquivo `offers.json` na branch `data`.
 - Execuções: <https://github.com/jomasii/pswatch/actions>
 - Teste do Telegram: Actions → `telegram-test` → Run workflow.
 - Gasto no Apify: painel do Apify → Billing → Usage.
