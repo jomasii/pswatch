@@ -20,11 +20,21 @@ allowed_stores:
   - carrefour
 
 sources:
+  # Páginas de produto que listam ofertas por loja. O modelo (disco/digital)
+  # vem do título de cada oferta, então uma página pode ter os dois.
   zoom:
-    urls: {}
+    urls:
+      - https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1tb-sony-4k-hdr
+      - https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-4k
+      - https://www.zoom.com.br/console-de-video-game/pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k
+      - https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k
   buscape:
-    urls: {}
+    urls:
+      - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-1tb-sony-4k-hdr
+      - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-4k
+      - https://www.buscape.com.br/console-de-video-game/pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k
+      - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k
   mercadolivre:
-    enabled: true
+    enabled: false
   coupons:
     urls: {}
