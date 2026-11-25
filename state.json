@@ -8,11 +8,11 @@
    "above_since": null
   },
   "slim_digital": {
-   "last_alert_price": "4369.05",
+   "last_alert_price": null,
    "max_sent": 0,
    "last_max_at": null,
    "last_suspect_price": null,
-   "above_since": "2026-11-25T11:37:57.942058+00:00"
+   "above_since": null
   }
  },
  "health": {
