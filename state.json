@@ -3,12 +3,16 @@
   "slim_disc": {
    "last_alert_price": null,
    "max_sent": 0,
-   "last_max_at": null
+   "last_max_at": null,
+   "last_suspect_price": null,
+   "above_since": null
   },
   "slim_digital": {
    "last_alert_price": null,
    "max_sent": 0,
-   "last_max_at": null
+   "last_max_at": null,
+   "last_suspect_price": null,
+   "above_since": null
   }
  },
  "health": {
