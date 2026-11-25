@@ -26,6 +26,27 @@ def test_record_history_hourly_checkpoint():
     assert record_history(history, [make_offer(price="3900")], T0 + timedelta(minutes=61)) is True
 
 
+def test_record_history_stores_link_of_cheapest_offer():
+    history = {}
+    record_history(
+        history, [make_offer(price="3900", url="https://a/1"), make_offer(price="3950", url="https://a/2")], T0
+    )
+    assert history["slim_disc"]["kabum"] == [[T0.isoformat(), "3900", "https://a/1"]]
+
+
+def test_record_history_same_price_new_link_is_not_a_change():
+    history = {}
+    record_history(history, [make_offer(price="3900", url="https://a/1")], T0)
+    later = T0 + timedelta(minutes=1)
+    assert record_history(history, [make_offer(price="3900", url="https://a/9")], later) is False
+
+
+def test_old_two_element_points_still_work():
+    history = {"slim_disc": {"kabum": [[(T0 - timedelta(days=1)).isoformat(), "3800"]]}}
+    assert low_30d(history, ModelKey.SLIM_DISC, T0) == Decimal("3800")
+    assert record_history(history, [make_offer(price="3900")], T0) is True
+
+
 def test_low_30d_ignores_older_points():
     history = {}
     record_history(history, [make_offer(price="3000")], T0 - timedelta(days=40))

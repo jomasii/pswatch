@@ -16,23 +16,26 @@ PUSH_ATTEMPTS = 3
 
 
 def record_history(history: dict, offers: list[Offer], now: datetime) -> bool:
-    """Acrescenta pontos só quando o preço muda (ou a cada hora). Devolve True se mudou."""
-    cheapest: dict[tuple[str, str], Decimal] = {}
+    """Acrescenta pontos só quando o preço muda (ou a cada hora). Devolve True se mudou.
+
+    Cada ponto é [hora, preço, link]; pontos antigos podem ter só [hora, preço].
+    """
+    cheapest: dict[tuple[str, str], Offer] = {}
     for o in offers:
         key = (o.model.value, o.store.lower())
-        if key not in cheapest or o.price_cash < cheapest[key]:
-            cheapest[key] = o.price_cash
+        if key not in cheapest or o.price_cash < cheapest[key].price_cash:
+            cheapest[key] = o
 
     changed = False
-    for (model, store), price in cheapest.items():
+    for (model, store), offer in cheapest.items():
         points = history.setdefault(model, {}).setdefault(store, [])
         if points:
-            last_time, last_price = points[-1]
-            same = Decimal(last_price) == price
-            fresh = now - datetime.fromisoformat(last_time) < CHECKPOINT
+            last = points[-1]
+            same = Decimal(last[1]) == offer.price_cash
+            fresh = now - datetime.fromisoformat(last[0]) < CHECKPOINT
             if same and fresh:
                 continue
-        points.append([now.isoformat(), str(price)])
+        points.append([now.isoformat(), str(offer.price_cash), offer.url])
         changed = True
     return changed
 
@@ -40,10 +43,10 @@ def record_history(history: dict, offers: list[Offer], now: datetime) -> bool:
 def low_30d(history: dict, model: ModelKey, now: datetime) -> Decimal | None:
     cutoff = now - timedelta(days=30)
     prices = [
-        Decimal(price)
+        Decimal(p[1])
         for points in history.get(model.value, {}).values()
-        for time, price in points
-        if datetime.fromisoformat(time) >= cutoff
+        for p in points
+        if datetime.fromisoformat(p[0]) >= cutoff
     ]
     return min(prices) if prices else None
 
