@@ -1,4 +1,4 @@
-normal_threshold: "4000"
+normal_threshold: "4500"
 max_threshold: "3600"
 suspect_floor: "2000"
 max_repeats: 5
