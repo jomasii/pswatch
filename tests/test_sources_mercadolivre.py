@@ -122,6 +122,23 @@ def test_fetch_failure_raises_and_is_not_retried_before_interval(tmp_path, respo
     assert len(session.calls) == 1
 
 
+def test_each_window_can_have_its_own_interval(tmp_path):
+    session = FakeSession(FakeResponse(201, ITEMS[:1]))
+    windows = [
+        (T0 - timedelta(hours=1), T0 + timedelta(hours=1), 1200),
+        (T0 + timedelta(hours=1), T0 + timedelta(days=1), 4 * 3600),
+    ]
+    source, clock = make_source(tmp_path, session, T0, windows=windows, max_runs=99)
+    for minutes in (0, 10, 20, 40):  # janela 1: a cada 20 min
+        clock["now"] = T0 + timedelta(minutes=minutes)
+        source.fetch()
+    assert len(session.calls) == 3
+    for hours in (1.5, 3, 4.7):  # janela 2: a cada 4 h (última foi T0+40min)
+        clock["now"] = T0 + timedelta(hours=hours)
+        source.fetch()
+    assert len(session.calls) == 4
+
+
 def test_windows_parse_iso_strings(tmp_path):
     session = FakeSession(FakeResponse(201, []))
     source, _ = make_source(

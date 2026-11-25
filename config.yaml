@@ -44,16 +44,23 @@ sources:
       # combos com jogos
       - https://www.buscape.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7
       - https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k
-  # Mercado Livre via robô do Apify (cobra por oferta: ~US$ 0,024 por consulta de 20).
-  # Só consulta dentro das janelas abaixo (horário de Brasília) e para de vez
-  # depois de max_runs consultas, para não passar do crédito grátis de US$ 5.
+  # Mercado Livre via robô do Apify: US$ 0,005 por resultado; o teto de US$ 0,05
+  # por consulta limita cada uma a 10 resultados. Só consulta dentro das janelas
+  # abaixo (horário de Brasília), cada uma com seu intervalo, e para de vez depois
+  # de max_runs consultas no total (já conta as 2 do teste de 25/11).
+  # Orçamento: 58 + 8 + 22 = 88 consultas x US$ 0,05 = US$ 4,40 de US$ 4,71 grátis.
   mercadolivre:
     enabled: true
     interval_s: 600
     max_items: 20
     max_charge_usd: "0.05"
-    max_runs: 160
+    max_runs: 90
     windows:
-      - {from: "2026-11-27T00:00:00-03:00", until: "2026-11-28T00:00:00-03:00"}  # Black Friday
+      # Black Friday: a cada 25 min (~58 consultas)
+      - {from: "2026-11-27T00:00:00-03:00", until: "2026-11-28T00:00:00-03:00", interval_s: 1500}
+      # sábado e domingo: a cada 6 h (~8 consultas)
+      - {from: "2026-11-28T00:00:00-03:00", until: "2026-11-30T00:00:00-03:00", interval_s: 21600}
+      # Cyber Monday: a cada 66 min (~22 consultas)
+      - {from: "2026-11-30T00:00:00-03:00", until: "2026-12-01T00:00:00-03:00", interval_s: 3960}
   coupons:
     urls: {}

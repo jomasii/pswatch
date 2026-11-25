@@ -36,7 +36,7 @@ def build_sources(
         sources.append(
             MercadoLivreSource(
                 token, session, clock, Path(data_dir) / "mercadolivre.json",
-                windows=[(w["from"], w["until"]) for w in ml.get("windows") or []],
+                windows=[(w["from"], w["until"], w.get("interval_s")) for w in ml.get("windows") or []],
                 interval_s=int(ml.get("interval_s", 600)),
                 max_runs=int(ml.get("max_runs", 0)),
                 max_items=int(ml.get("max_items", 20)),

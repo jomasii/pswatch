@@ -98,7 +98,10 @@ class MercadoLivreSource:
         self._session = session
         self._clock = clock
         self._cache_path = Path(cache_path)
-        self._windows = [(_when(a), _when(b)) for a, b in windows]
+        # cada janela: (início, fim) ou (início, fim, intervalo próprio em segundos)
+        self._windows = [
+            (_when(w[0]), _when(w[1]), int(w[2]) if len(w) > 2 and w[2] else interval_s) for w in windows
+        ]
         self._interval_s = interval_s
         self._max_runs = max_runs
         self._max_items = max_items
@@ -120,13 +123,18 @@ class MercadoLivreSource:
         dirty, self._dirty = self._dirty, False
         return dirty
 
+    def _window(self, now: datetime):
+        return next((w for w in self._windows if w[0] <= now < w[1]), None)
+
     def _due(self, cache: dict, now: datetime) -> bool:
         last = cache.get("fetched_at")
-        return last is None or (now - datetime.fromisoformat(last)).total_seconds() >= self._interval_s
+        window = self._window(now)
+        interval = window[2] if window else self._interval_s
+        return last is None or (now - datetime.fromisoformat(last)).total_seconds() >= interval
 
     def active(self) -> bool:
         now = self._clock()
-        if not any(start <= now < end for start, end in self._windows):
+        if self._window(now) is None:
             return False
         cache = self._load()
         return cache.get("runs", 0) < self._max_runs or not self._due(cache, now)
