@@ -1,0 +1,24 @@
+{
+ "alert": {
+  "slim_disc": {
+   "last_alert_price": null,
+   "max_sent": 0,
+   "last_max_at": null
+  },
+  "slim_digital": {
+   "last_alert_price": null,
+   "max_sent": 0,
+   "last_max_at": null
+  }
+ },
+ "health": {
+  "zoom": {
+   "failing_since": null,
+   "alerted": false
+  },
+  "buscape": {
+   "failing_since": null,
+   "alerted": false
+  }
+ }
+}
