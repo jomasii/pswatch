@@ -17,11 +17,11 @@
  },
  "health": {
   "zoom": {
-   "failing_since": null,
+   "failing_since": "2026-11-25T06:59:15.430463+00:00",
    "alerted": false
   },
   "buscape": {
-   "failing_since": null,
+   "failing_since": "2026-11-25T06:59:15.430463+00:00",
    "alerted": false
   }
  }
