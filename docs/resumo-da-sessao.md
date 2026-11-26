@@ -109,6 +109,13 @@ Escolhas feitas por mim (e o custo se estiverem erradas):
 - Saiu: o passo "Publicar página" do `watch.yml` (com `scripts/publish_site.py` e seu teste) e a 3ª alternativa de busca (cópia dos dados no próprio Pages).
 - Conferido: deploy do workflow verde, página no ar com dados ao vivo e sem erros, e um commit de dados às 23:15 sem gerar deploy.
 - O limite de ~10 publicações/h do Pages deixou de importar para o batimento de 10 min.
+
+### Zoom e rolagem nos gráficos do histórico (26/11)
+- As linhas estavam se embolando. Cada gráfico ganhou botões ◀ − + ▶ "24h" "Tudo"; também dá para arrastar para os lados, usar Ctrl + roda do mouse (ou pinça no celular) e duplo clique para voltar a tudo.
+- Com zoom, o eixo do preço se ajusta só ao trecho visível (as linhas de alerta podem sair da tela nesse caso).
+- O recorte escolhido continua quando o histórico atualiza (a cada 5 min).
+- Biblioteca: chartjs-plugin-zoom 2.0.1 + hammer.js 2.0.8 (cdnjs). Se não carregarem, o gráfico aparece como antes, sem os botões.
+- Conferido com dados reais (local) e no site publicado, sem erros.
 - Quando o vigia já vai gravar por outro motivo, leva junto a lista de ofertas atualizada. Custo: um pouco mais de gravações.
 - Links levam à página do Zoom/Buscapé com a oferta destacada, não direto à loja. Custo: um clique a mais.
 
