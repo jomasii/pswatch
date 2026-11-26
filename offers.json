@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-26T02:24:18.728243+00:00",
+ "checked_at": "2026-11-26T02:25:31.284469+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -21,7 +21,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T02:24:18.728243+00:00"
+   "since": "2026-11-26T02:25:31.284469+00:00"
   },
   {
    "model": "slim_digital",
@@ -65,7 +65,7 @@
    "title": "PlayStation®5 Slim Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T02:24:18.728243+00:00"
+   "since": "2026-11-26T02:25:31.284469+00:00"
   },
   {
    "model": "slim_disc",
@@ -98,7 +98,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T02:24:18.728243+00:00"
+   "since": "2026-11-26T02:25:31.284469+00:00"
   },
   {
    "model": "slim_disc",
@@ -109,7 +109,18 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T02:24:18.728243+00:00"
+   "since": "2026-11-26T02:25:31.284469+00:00"
+  },
+  {
+   "model": "slim_digital",
+   "store": "magazine luiza",
+   "price": "5403.85",
+   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-4k?highlightedItemId=1574463275",
+   "bundle": false,
+   "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle Du",
+   "promo": "",
+   "source": "zoom",
+   "since": "2026-11-25T16:00:41.783918+00:00"
   },
   {
    "model": "slim_disc",
@@ -120,7 +131,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T02:24:18.728243+00:00"
+   "since": "2026-11-26T02:25:31.284469+00:00"
   },
   {
    "model": "slim_disc",
@@ -131,7 +142,7 @@
    "title": "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Se",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T02:24:18.728243+00:00"
+   "since": "2026-11-26T02:25:31.284469+00:00"
   }
  ]
 }
