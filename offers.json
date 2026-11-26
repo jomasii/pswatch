@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-26T18:44:46.573936+00:00",
+ "checked_at": "2026-11-26T18:48:16.187656+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -21,7 +21,7 @@
    "title": "PlayStation®5 Slim Digital 825GB – Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_digital",
@@ -43,7 +43,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_digital",
@@ -54,7 +54,7 @@
    "title": "PlayStation®5 Slim Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_disc",
@@ -80,6 +80,17 @@
   },
   {
    "model": "slim_disc",
+   "store": "amazon",
+   "price": "4749.05",
+   "url": "https://www.buscape.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7?highlightedItemId=1513669583",
+   "bundle": true,
+   "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
+   "promo": "",
+   "source": "buscape",
+   "since": "2026-11-26T18:48:16.187656+00:00"
+  },
+  {
+   "model": "slim_disc",
    "store": "kabum",
    "price": "4749.05",
    "url": "https://www.zoom.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7?highlightedItemId=1530728279",
@@ -98,7 +109,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:21:55.279873+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_disc",
@@ -109,7 +120,7 @@
    "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_disc",
@@ -120,7 +131,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_digital",
@@ -142,18 +153,18 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_disc",
    "store": "amazon",
    "price": "5599.9",
-   "url": "https://www.buscape.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1535140318",
+   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1535140318",
    "bundle": true,
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
-   "source": "buscape",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "source": "zoom",
+   "since": "2026-11-26T18:48:16.187656+00:00"
   },
   {
    "model": "slim_disc",
@@ -164,7 +175,7 @@
    "title": "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Se",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T18:44:46.573936+00:00"
+   "since": "2026-11-26T18:48:16.187656+00:00"
   }
  ]
 }
