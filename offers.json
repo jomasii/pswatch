@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-26T15:15:51.609281+00:00",
+ "checked_at": "2026-11-26T15:16:41.768464+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -32,18 +32,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
-  },
-  {
-   "model": "slim_disc",
-   "store": "amazon",
-   "price": "4464.04",
-   "url": "https://www.buscape.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7?highlightedItemId=1513669583",
-   "bundle": true,
-   "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
-   "promo": "",
-   "source": "buscape",
-   "since": "2026-11-26T13:55:53.714620+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   },
   {
    "model": "slim_digital",
@@ -54,7 +43,7 @@
    "title": "PlayStation®5 Slim Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   },
   {
    "model": "slim_disc",
@@ -87,7 +76,7 @@
    "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   },
   {
    "model": "slim_disc",
@@ -109,7 +98,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   },
   {
    "model": "slim_disc",
@@ -120,7 +109,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   },
   {
    "model": "slim_disc",
@@ -131,7 +120,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   },
   {
    "model": "slim_disc",
@@ -142,7 +131,7 @@
    "title": "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Se",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T15:15:51.609281+00:00"
+   "since": "2026-11-26T15:16:41.768464+00:00"
   }
  ]
 }
