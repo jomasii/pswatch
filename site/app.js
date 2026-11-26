@@ -28,7 +28,7 @@ const FILTERS = [
 ];
 const PALETTE = ["#58a6ff", "#3fb950", "#bc8cff", "#f0883e", "#39c5cf", "#ff7b72", "#8b949e"];
 
-const state = { offers: null, history: {}, slow: false, filter: "all", etags: {}, charts: [], apiPausedUntil: 0 };
+const state = { offers: null, history: {}, slow: false, filter: "all", etags: {}, charts: [], views: {}, apiPausedUntil: 0 };
 
 // ---------- helpers puros ----------
 const brl = (n) => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -307,19 +307,73 @@ function renderLows() {
   box.append(t);
 }
 
+// ---------- gráficos: zoom e rolagem ----------
+// O gráfico é recriado a cada 5 min (histórico novo); o recorte escolhido fica em state.views.
+const MIN_RANGE_MS = 30 * 60 * 1000;
+const DAY_MS = 24 * 3600 * 1000;
+
+// Com zoom, o eixo do preço se ajusta só ao que está visível (linhas em degrau:
+// conta também o último ponto antes da janela). Sem zoom, volta ao automático.
+function fitY(chart) {
+  const y = chart.options.scales.y;
+  if (!chart.isZoomedOrPanned()) { delete y.min; delete y.max; chart.update("none"); return; }
+  const { min, max } = chart.scales.x;
+  const vals = [];
+  for (const ds of chart.data.datasets) {
+    if (ds.threshold) continue;
+    let before = null;
+    for (const p of ds.data) {
+      if (p.x < min) before = p.y;
+      else if (p.x <= max) vals.push(p.y);
+    }
+    if (before !== null) vals.push(before);
+  }
+  if (!vals.length) return;
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  const pad = Math.max((hi - lo) * 0.08, 50);
+  y.min = Math.floor((lo - pad) / 50) * 50;
+  y.max = Math.ceil((hi + pad) / 50) * 50;
+  chart.update("none");
+}
+
+function afterMove(model, chart) {
+  fitY(chart);
+  state.views[model] = chart.isZoomedOrPanned() ? { min: chart.scales.x.min, max: chart.scales.x.max } : null;
+}
+
+function chartTools(model, chart, xMax) {
+  const bar = el("div", "chart-tools");
+  const btn = (text, title, fn) => {
+    const b = el("button", "", text);
+    b.type = "button"; b.title = title;
+    b.addEventListener("click", () => { fn(); afterMove(model, chart); });
+    bar.append(b);
+  };
+  btn("◀", "Voltar no tempo", () => chart.pan({ x: chart.chartArea.width * 0.4 }, undefined, "none"));
+  btn("−", "Afastar (zoom out)", () => chart.zoom({ x: 1 / 1.5 }, "none"));
+  btn("+", "Aproximar (zoom in)", () => chart.zoom({ x: 1.5 }, "none"));
+  btn("▶", "Avançar no tempo", () => chart.pan({ x: -chart.chartArea.width * 0.4 }, undefined, "none"));
+  btn("24h", "Últimas 24 horas", () => chart.zoomScale("x", { min: xMax - DAY_MS, max: xMax }, "none"));
+  btn("Tudo", "Ver todo o período", () => chart.resetZoom("none"));
+  return bar;
+}
+
 function renderCharts() {
   const box = document.getElementById("charts");
   state.charts.forEach((c) => c.destroy());
   state.charts = [];
   box.replaceChildren();
   if (typeof Chart === "undefined") return;
+  const zoomOk = !!Chart.registry.plugins.get("zoom");
   const css = getComputedStyle(document.documentElement);
   const muted = css.getPropertyValue("--muted").trim();
   const grid = css.getPropertyValue("--line-soft").trim();
   for (const model of Object.keys(MODELS)) {
     const stores = (state.history || {})[model] || {};
     const card = el("div", "chart-card");
-    card.append(el("h3", "", MODELS[model]));
+    const head = el("div", "chart-head");
+    head.append(el("h3", "", MODELS[model]));
+    card.append(head);
     const holder = el("div", "chart-box");
     const canvas = el("canvas");
     holder.append(canvas);
@@ -336,9 +390,10 @@ function renderCharts() {
     const xs = series.flatMap((s) => s.data.map((d) => d.x));
     const [xMin, xMax] = [Math.min(...xs), Math.max(...xs)];
     [[ALERT, "#d29922", "Alerta R$ 4.000"], [MAX_ALERT, "#f85149", "Máximo R$ 3.600"]].forEach(([v, c, l]) =>
-      series.push({ label: l, borderColor: c, borderDash: [6, 4], pointRadius: 0, borderWidth: 1.5,
+      series.push({ label: l, borderColor: c, borderDash: [6, 4], pointRadius: 0, borderWidth: 1.5, threshold: true,
         data: [{ x: xMin, y: v }, { x: xMax, y: v }] }));
-    state.charts.push(new Chart(canvas, {
+    const done = ({ chart }) => afterMove(model, chart);
+    const chart = new Chart(canvas, {
       type: "line",
       data: { datasets: series },
       options: {
@@ -354,9 +409,21 @@ function renderCharts() {
             title: (items) => fmtWhen(new Date(items[0].parsed.x).toISOString()),
             label: (item) => `${item.dataset.label}: ${brl(item.parsed.y)}`,
           } },
+          zoom: {
+            limits: { x: { min: "original", max: "original", minRange: MIN_RANGE_MS } },
+            pan: { enabled: true, mode: "x", onPanComplete: done },
+            zoom: { mode: "x", onZoomComplete: done, wheel: { enabled: true, modifierKey: "ctrl" }, pinch: { enabled: true } },
+          },
         },
       },
-    }));
+    });
+    state.charts.push(chart);
+    if (!zoomOk) continue;
+    head.append(chartTools(model, chart, xMax));
+    canvas.addEventListener("dblclick", () => { chart.resetZoom("none"); afterMove(model, chart); });
+    const view = state.views[model];
+    if (view) { chart.zoomScale("x", view, "none"); fitY(chart); }
+    card.append(el("p", "chart-hint", "Arraste para os lados para rolar · Ctrl + roda do mouse (ou pinça) para zoom · duplo clique mostra tudo"));
   }
 }
 
