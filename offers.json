@@ -1,17 +1,6 @@
 {
- "checked_at": "2026-11-26T13:02:05.279477+00:00",
+ "checked_at": "2026-11-26T13:02:57.117816+00:00",
  "offers": [
-  {
-   "model": "slim_digital",
-   "store": "kabum",
-   "price": "4369.05",
-   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k?highlightedItemId=1547454661",
-   "bundle": true,
-   "title": "Console Sony PlayStation 5, SSD 825GB, Controle Sem Fio DualSense + 2 Jogos Digitais, Edição Digital",
-   "promo": "",
-   "source": "zoom",
-   "since": "2026-11-25T11:21:16.367456+00:00"
-  },
   {
    "model": "slim_digital",
    "store": "kabum",
@@ -21,7 +10,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T13:02:05.279477+00:00"
+   "since": "2026-11-26T13:02:57.117816+00:00"
   },
   {
    "model": "slim_digital",
@@ -65,7 +54,7 @@
    "title": "PlayStation®5 Slim Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T13:02:05.279477+00:00"
+   "since": "2026-11-26T13:02:57.117816+00:00"
   },
   {
    "model": "slim_disc",
@@ -98,7 +87,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T13:02:05.279477+00:00"
+   "since": "2026-11-26T13:02:57.117816+00:00"
   },
   {
    "model": "slim_disc",
@@ -109,7 +98,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T13:02:05.279477+00:00"
+   "since": "2026-11-26T13:02:57.117816+00:00"
   },
   {
    "model": "slim_digital",
@@ -131,7 +120,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T13:02:05.279477+00:00"
+   "since": "2026-11-26T13:02:57.117816+00:00"
   },
   {
    "model": "slim_disc",
@@ -142,7 +131,7 @@
    "title": "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Se",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-26T13:02:05.279477+00:00"
+   "since": "2026-11-26T13:02:57.117816+00:00"
   }
  ]
 }
