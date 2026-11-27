@@ -1,6 +1,6 @@
 {
- "fetched_at": "2026-11-27T06:49:07.618000+00:00",
- "runs": 23,
+ "fetched_at": "2026-11-27T07:00:56.393691+00:00",
+ "runs": 24,
  "offers": [
   {
    "model": "slim_digital",
@@ -16,6 +16,14 @@
    "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb/p/MLB54963150",
    "bundle": false,
    "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
+   "promo": ""
+  },
+  {
+   "model": "slim_digital",
+   "price": "4799.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb-branco-sony/p/MLB29001054",
+   "bundle": false,
+   "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
    "promo": ""
   },
   {
