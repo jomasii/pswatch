@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T10:23:50.241554+00:00",
+ "checked_at": "2026-11-27T10:24:38.862168+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -43,7 +43,7 @@
    "title": "Console Sony PlayStation 5, SSD 825GB, Controle Sem Fio DualSense + 2 Jogos Digitais, Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T10:23:50.241554+00:00"
+   "since": "2026-11-27T10:24:38.862168+00:00"
   },
   {
    "model": "slim_digital",
@@ -76,7 +76,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T10:23:50.241554+00:00"
+   "since": "2026-11-27T10:24:38.862168+00:00"
   },
   {
    "model": "slim_disc",
@@ -98,7 +98,18 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T10:23:50.241554+00:00"
+   "since": "2026-11-27T10:24:38.862168+00:00"
+  },
+  {
+   "model": "slim_disc",
+   "store": "amazon",
+   "price": "5319.9",
+   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1276737335",
+   "bundle": true,
+   "title": "PlayStation®5 Slim Disk + 2 Jogos",
+   "promo": "",
+   "source": "zoom",
+   "since": "2026-11-27T10:24:38.862168+00:00"
   },
   {
    "model": "slim_disc",
@@ -115,12 +126,12 @@
    "model": "slim_disc",
    "store": "amazon",
    "price": "5599.9",
-   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1276737335",
+   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1535140318",
    "bundle": true,
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T10:23:50.241554+00:00"
+   "since": "2026-11-27T10:24:38.862168+00:00"
   },
   {
    "model": "slim_disc",
