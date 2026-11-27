@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T14:56:38.361893+00:00",
+ "checked_at": "2026-11-27T14:57:31.263484+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -43,7 +43,7 @@
    "title": "Console Sony PlayStation 5, SSD 825GB, Controle Sem Fio DualSense + 2 Jogos Digitais, Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T14:56:38.361893+00:00"
+   "since": "2026-11-27T14:57:31.263484+00:00"
   },
   {
    "model": "slim_digital",
@@ -54,7 +54,7 @@
    "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
    "promo": "4374 BRL com Cupom",
    "source": "mercadolivre",
-   "since": "2026-11-27T14:56:38.361893+00:00"
+   "since": "2026-11-27T14:57:31.263484+00:00"
   },
   {
    "model": "slim_digital",
@@ -65,7 +65,7 @@
    "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
    "promo": "",
    "source": "mercadolivre",
-   "since": "2026-11-27T14:56:38.361893+00:00"
+   "since": "2026-11-27T14:57:31.263484+00:00"
   },
   {
    "model": "slim_disc",
@@ -87,7 +87,7 @@
    "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T14:56:38.361893+00:00"
+   "since": "2026-11-27T14:57:31.263484+00:00"
   },
   {
    "model": "slim_disc",
@@ -98,7 +98,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T14:56:38.361893+00:00"
+   "since": "2026-11-27T14:57:31.263484+00:00"
   },
   {
    "model": "slim_disc",
@@ -120,18 +120,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T14:56:38.361893+00:00"
-  },
-  {
-   "model": "slim_disc",
-   "store": "amazon",
-   "price": "5599.9",
-   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1535140318",
-   "bundle": true,
-   "title": "PlayStation®5 Slim Disk + 2 Jogos",
-   "promo": "",
-   "source": "zoom",
-   "since": "2026-11-27T14:56:38.361893+00:00"
+   "since": "2026-11-27T14:57:31.263484+00:00"
   },
   {
    "model": "slim_disc",
