@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T15:36:51.574195+00:00",
+ "checked_at": "2026-11-27T15:38:34.958203+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -32,7 +32,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T15:36:51.574195+00:00"
+   "since": "2026-11-27T15:38:34.958203+00:00"
   },
   {
    "model": "slim_digital",
@@ -60,12 +60,12 @@
    "model": "slim_disc",
    "store": "amazon",
    "price": "4844.05",
-   "url": "https://www.zoom.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7?highlightedItemId=1513669583",
+   "url": "https://www.buscape.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7?highlightedItemId=1513669583",
    "bundle": true,
    "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
-   "source": "zoom",
-   "since": "2026-11-27T15:36:51.574195+00:00"
+   "source": "buscape",
+   "since": "2026-11-27T15:38:34.958203+00:00"
   },
   {
    "model": "slim_disc",
@@ -76,7 +76,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T15:36:51.574195+00:00"
+   "since": "2026-11-27T15:38:34.958203+00:00"
   },
   {
    "model": "slim_disc",
@@ -92,13 +92,24 @@
   {
    "model": "slim_disc",
    "store": "amazon",
+   "price": "5099",
+   "url": "https://www.zoom.com.br/console-de-video-game/playstation-5-slim-1tb-bundle-astro-bot-gran-turismo-7?highlightedItemId=1513669583",
+   "bundle": true,
+   "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
+   "promo": "",
+   "source": "zoom",
+   "since": "2026-11-27T15:38:34.958203+00:00"
+  },
+  {
+   "model": "slim_disc",
+   "store": "amazon",
    "price": "5319.9",
    "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1276737335",
    "bundle": true,
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T15:36:51.574195+00:00"
+   "since": "2026-11-27T15:38:34.958203+00:00"
   },
   {
    "model": "slim_digital",
@@ -120,7 +131,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T15:36:51.574195+00:00"
+   "since": "2026-11-27T15:38:34.958203+00:00"
   },
   {
    "model": "slim_disc",
