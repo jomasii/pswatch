@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T16:02:55.730572+00:00",
+ "checked_at": "2026-11-27T16:09:54.245780+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -32,7 +32,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:02:55.730572+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   },
   {
    "model": "slim_digital",
@@ -76,7 +76,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:02:55.730572+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   },
   {
    "model": "slim_disc",
@@ -87,7 +87,7 @@
    "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:02:55.730572+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   },
   {
    "model": "slim_disc",
@@ -98,7 +98,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:02:55.730572+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   },
   {
    "model": "slim_digital",
@@ -120,7 +120,7 @@
    "title": "Console PlayStation 5 Slim Digital - Pacote Astro Bot e Gran Turismo 7 - Branco",
    "promo": "",
    "source": "mercadolivre",
-   "since": "2026-11-27T16:02:55.730572+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   },
   {
    "model": "slim_disc",
@@ -131,7 +131,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:02:55.730572+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   },
   {
    "model": "slim_disc",
@@ -145,15 +145,15 @@
    "since": "2026-11-27T06:05:34.595436+00:00"
   },
   {
-   "model": "slim_disc",
+   "model": "slim_digital",
    "store": "mercado livre",
-   "price": "6399.0",
-   "url": "https://www.mercadolivre.com.br/console-sony-playstation-5-edicao-slim-disk-1tb-branco/p/MLB52897777",
-   "bundle": false,
-   "title": "Console Sony Playstation 5 Edição Slim Disk 1tb Branco",
+   "price": "5872.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation5-slim-digital2-controles10-jogos-gtav/up/MLBU5269251370",
+   "bundle": true,
+   "title": "Console Playstation®5 Slim Digital+2 Controles+10 Jogos Gtav",
    "promo": "",
    "source": "mercadolivre",
-   "since": "2026-11-27T15:58:29.473903+00:00"
+   "since": "2026-11-27T16:09:54.245780+00:00"
   }
  ]
 }
