@@ -1,6 +1,6 @@
 {
- "fetched_at": "2026-11-27T17:41:29.355881+00:00",
- "runs": 80,
+ "fetched_at": "2026-11-27T17:52:40.564494+00:00",
+ "runs": 81,
  "offers": [
   {
    "model": "slim_digital",
@@ -17,6 +17,14 @@
    "bundle": false,
    "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
    "promo": ""
+  },
+  {
+   "model": "slim_digital",
+   "price": "4507.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb/p/MLB54963150",
+   "bundle": false,
+   "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
+   "promo": "4374 BRL com Cupom"
   }
  ],
  "error": null
