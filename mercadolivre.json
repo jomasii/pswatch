@@ -1,15 +1,7 @@
 {
- "fetched_at": "2026-11-27T19:02:28.827537+00:00",
- "runs": 87,
+ "fetched_at": "2026-11-27T19:13:54.267936+00:00",
+ "runs": 88,
  "offers": [
-  {
-   "model": "slim_digital",
-   "price": "4369.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-digital-pacote-astro-bot-e-gran-turismo-7-branco/p/MLB57081243",
-   "bundle": true,
-   "title": "Console PlayStation 5 Slim Digital - Pacote Astro Bot e Gran Turismo 7 - Branco",
-   "promo": ""
-  },
   {
    "model": "slim_disc",
    "price": "6499.0",
