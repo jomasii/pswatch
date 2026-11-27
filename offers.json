@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T08:49:36.993473+00:00",
+ "checked_at": "2026-11-27T08:55:46.058493+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -43,7 +43,7 @@
    "title": "Console Sony PlayStation 5, SSD 825GB, Controle Sem Fio DualSense + 2 Jogos Digitais, Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T08:49:36.993473+00:00"
+   "since": "2026-11-27T08:55:46.058493+00:00"
   },
   {
    "model": "slim_digital",
@@ -68,28 +68,6 @@
    "since": "2026-11-25T19:14:21.174210+00:00"
   },
   {
-   "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "4752.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb/p/MLB54963150",
-   "bundle": false,
-   "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T08:49:36.993473+00:00"
-  },
-  {
-   "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "4799.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb-branco-sony/p/MLB29001054",
-   "bundle": false,
-   "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T08:49:36.993473+00:00"
-  },
-  {
    "model": "slim_disc",
    "store": "amazon",
    "price": "4987.5",
@@ -98,7 +76,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T08:49:36.993473+00:00"
+   "since": "2026-11-27T08:55:46.058493+00:00"
   },
   {
    "model": "slim_disc",
@@ -112,17 +90,6 @@
    "since": "2026-11-27T02:56:18.231881+00:00"
   },
   {
-   "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "5190.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-sony8-jogos-gta/up/MLBU3454009205",
-   "bundle": true,
-   "title": "Console Playstation® 5 Slim Edição Digital Sony+8 Jogos Gta",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T08:49:36.993473+00:00"
-  },
-  {
    "model": "slim_disc",
    "store": "amazon",
    "price": "5319.9",
@@ -131,7 +98,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T08:49:36.993473+00:00"
+   "since": "2026-11-27T08:55:46.058493+00:00"
   },
   {
    "model": "slim_disc",
@@ -142,7 +109,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T08:49:36.993473+00:00"
+   "since": "2026-11-27T08:55:46.058493+00:00"
   },
   {
    "model": "slim_disc",
@@ -164,7 +131,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T08:49:36.993473+00:00"
+   "since": "2026-11-27T08:55:46.058493+00:00"
   },
   {
    "model": "slim_disc",
