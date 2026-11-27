@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T16:20:39.765529+00:00",
+ "checked_at": "2026-11-27T16:21:32.050216+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -32,7 +32,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:20:39.765529+00:00"
+   "since": "2026-11-27T16:21:32.050216+00:00"
   },
   {
    "model": "slim_disc",
@@ -65,7 +65,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:20:39.765529+00:00"
+   "since": "2026-11-27T16:21:32.050216+00:00"
   },
   {
    "model": "slim_disc",
@@ -76,18 +76,18 @@
    "title": "PlayStation®5 Slim Disk - Pacote ASTRO BOT e Gran Turismo 7",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:20:39.765529+00:00"
+   "since": "2026-11-27T16:21:32.050216+00:00"
   },
   {
    "model": "slim_disc",
    "store": "amazon",
    "price": "5319.9",
-   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1276737335",
+   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1535140318",
    "bundle": true,
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T16:20:39.765529+00:00"
+   "since": "2026-11-27T16:21:32.050216+00:00"
   },
   {
    "model": "slim_digital",
@@ -109,18 +109,7 @@
    "title": "Console PlayStation 5 Slim Digital - Pacote Astro Bot e Gran Turismo 7 - Branco",
    "promo": "",
    "source": "mercadolivre",
-   "since": "2026-11-27T16:20:39.765529+00:00"
-  },
-  {
-   "model": "slim_disc",
-   "store": "amazon",
-   "price": "5599.9",
-   "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-1-tb-sony-4k?highlightedItemId=1535140318",
-   "bundle": true,
-   "title": "PlayStation®5 Slim Disk + 2 Jogos",
-   "promo": "",
-   "source": "zoom",
-   "since": "2026-11-27T16:20:39.765529+00:00"
+   "since": "2026-11-27T16:21:32.050216+00:00"
   },
   {
    "model": "slim_disc",
@@ -132,17 +121,6 @@
    "promo": "",
    "source": "zoom",
    "since": "2026-11-27T06:05:34.595436+00:00"
-  },
-  {
-   "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "5872.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation5-slim-digital2-controles10-jogos-gtav/up/MLBU5269251370",
-   "bundle": true,
-   "title": "Console Playstation®5 Slim Digital+2 Controles+10 Jogos Gtav",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T16:20:39.765529+00:00"
   }
  ]
 }
