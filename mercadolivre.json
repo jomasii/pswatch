@@ -1,13 +1,13 @@
 {
- "fetched_at": "2026-11-27T22:17:13.108559+00:00",
- "runs": 104,
+ "fetched_at": "2026-11-27T22:28:17.487183+00:00",
+ "runs": 105,
  "offers": [
   {
    "model": "slim_digital",
-   "price": "4699.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb-branco-sony/p/MLB29001054",
-   "bundle": false,
-   "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
+   "price": "4999.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-digital-pacote-astro-bot-e-gran-turismo-7-branco/p/MLB57081243",
+   "bundle": true,
+   "title": "Console PlayStation 5 Slim Digital - Pacote Astro Bot e Gran Turismo 7 - Branco",
    "promo": ""
   },
   {
@@ -16,6 +16,14 @@
    "url": "https://www.mercadolivre.com.br/console-playstation5-1tb-slim-disk-pacote-astro-bot-e-gran-turismo-7-branco/p/MLB57083347",
    "bundle": true,
    "title": "Console Playstation5 1TB Slim Disk - Pacote Astro Bot E Gran Turismo 7 Branco",
+   "promo": ""
+  },
+  {
+   "model": "slim_digital",
+   "price": "5290.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb/p/MLB54963150",
+   "bundle": false,
+   "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
    "promo": ""
   }
  ],
