@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-27T01:30:22.575485+00:00",
+ "checked_at": "2026-11-27T01:32:00.322386+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -32,7 +32,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T01:30:22.575485+00:00"
+   "since": "2026-11-27T01:32:00.322386+00:00"
   },
   {
    "model": "slim_disc",
@@ -87,18 +87,18 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T01:30:22.575485+00:00"
+   "since": "2026-11-27T01:32:00.322386+00:00"
   },
   {
    "model": "slim_disc",
    "store": "amazon",
-   "price": "5319.9",
+   "price": "5599.9",
    "url": "https://www.zoom.com.br/console-de-video-game/pre-venda-console-playstation-5-slim-1-tb-sony-1214a-4k?highlightedItemId=1524262412",
    "bundle": false,
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T01:30:22.575485+00:00"
+   "since": "2026-11-27T01:32:00.322386+00:00"
   },
   {
    "model": "slim_disc",
@@ -109,7 +109,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T01:30:22.575485+00:00"
+   "since": "2026-11-27T01:32:00.322386+00:00"
   },
   {
    "model": "slim_disc",
@@ -120,7 +120,7 @@
    "title": "Console Sony PlayStation 5, Com Leitor de Discos, SSD 1TB, Controle Se",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T01:30:22.575485+00:00"
+   "since": "2026-11-27T01:32:00.322386+00:00"
   },
   {
    "model": "slim_digital",
@@ -131,7 +131,7 @@
    "title": "PlayStation®5 Slim Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T01:30:22.575485+00:00"
+   "since": "2026-11-27T01:32:00.322386+00:00"
   }
  ]
 }
