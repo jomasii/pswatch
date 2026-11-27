@@ -1,6 +1,17 @@
 {
- "checked_at": "2026-11-27T12:16:47.849619+00:00",
+ "checked_at": "2026-11-27T12:21:03.881086+00:00",
  "offers": [
+  {
+   "model": "slim_digital",
+   "store": "mercado livre",
+   "price": "4277.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-digital-pacote-astro-bot-e-gran-turismo-7-branco/p/MLB57081243",
+   "bundle": true,
+   "title": "Console PlayStation 5 Slim Digital - Pacote Astro Bot e Gran Turismo 7 - Branco",
+   "promo": "",
+   "source": "mercadolivre",
+   "since": "2026-11-27T12:21:03.881086+00:00"
+  },
   {
    "model": "slim_digital",
    "store": "kabum",
@@ -32,7 +43,7 @@
    "title": "Console Sony PlayStation 5, SSD 825GB, Controle Sem Fio DualSense + 2 Jogos Digitais, Edição Digital",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T12:16:47.849619+00:00"
+   "since": "2026-11-27T12:21:03.881086+00:00"
   },
   {
    "model": "slim_digital",
@@ -47,17 +58,6 @@
   },
   {
    "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "4599.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation5-slim-digital-pacote-astro-bot-e-gran-turismo-7/up/MLBU3430208210",
-   "bundle": true,
-   "title": "Console Playstation®5 Slim Digital - Pacote Astro Bot E Gran Turismo 7",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T12:09:27.364446+00:00"
-  },
-  {
-   "model": "slim_digital",
    "store": "americanas",
    "price": "4655.99",
    "url": "https://www.zoom.com.br/console-de-video-game/console-playstation-5-slim-825gb-sony-ps5-edicao-digital-bundle-4k?highlightedItemId=1539565754",
@@ -68,28 +68,6 @@
    "since": "2026-11-25T19:14:21.174210+00:00"
   },
   {
-   "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "4752.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb/p/MLB54963150",
-   "bundle": false,
-   "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T12:16:47.849619+00:00"
-  },
-  {
-   "model": "slim_digital",
-   "store": "mercado livre",
-   "price": "4799.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb-branco-sony/p/MLB29001054",
-   "bundle": false,
-   "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-27T12:16:47.849619+00:00"
-  },
-  {
    "model": "slim_disc",
    "store": "amazon",
    "price": "4987.5",
@@ -98,7 +76,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T12:16:47.849619+00:00"
+   "since": "2026-11-27T12:21:03.881086+00:00"
   },
   {
    "model": "slim_disc",
@@ -110,6 +88,17 @@
    "promo": "",
    "source": "zoom",
    "since": "2026-11-27T02:56:18.231881+00:00"
+  },
+  {
+   "model": "slim_digital",
+   "store": "mercado livre",
+   "price": "5199.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb/p/MLB54963150",
+   "bundle": false,
+   "title": "Console PlayStation 5 Slim Edição Digital 825 GB",
+   "promo": "",
+   "source": "mercadolivre",
+   "since": "2026-11-27T12:21:03.881086+00:00"
   },
   {
    "model": "slim_digital",
@@ -142,7 +131,7 @@
    "title": "PlayStation 5 Standard (Slim)",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T12:16:47.849619+00:00"
+   "since": "2026-11-27T12:21:03.881086+00:00"
   },
   {
    "model": "slim_disc",
@@ -153,7 +142,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-27T12:16:47.849619+00:00"
+   "since": "2026-11-27T12:21:03.881086+00:00"
   },
   {
    "model": "slim_disc",
@@ -165,6 +154,17 @@
    "promo": "",
    "source": "zoom",
    "since": "2026-11-27T06:05:34.595436+00:00"
+  },
+  {
+   "model": "slim_digital",
+   "store": "mercado livre",
+   "price": "5999.0",
+   "url": "https://www.mercadolivre.com.br/console-playstation-5-slim-edicao-digital-825-gb-branco-sony/p/MLB29001054",
+   "bundle": false,
+   "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
+   "promo": "",
+   "source": "mercadolivre",
+   "since": "2026-11-27T12:21:03.881086+00:00"
   }
  ]
 }
