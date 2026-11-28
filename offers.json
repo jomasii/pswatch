@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-28T00:29:36.151143+00:00",
+ "checked_at": "2026-11-28T00:34:02.593710+00:00",
  "offers": [
   {
    "model": "slim_digital",
@@ -32,7 +32,7 @@
    "title": "Console Sony PlayStation 5 Edição Digital Slim, SSD 825GB, Controle DualSense, Astro's Playroom, Branco - CFI 2114B",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-28T00:29:36.151143+00:00"
+   "since": "2026-11-28T00:34:02.593710+00:00"
   },
   {
    "model": "slim_digital",
@@ -76,7 +76,7 @@
    "title": "Console Playstation 5 Slim Disk + Controle DualSense lacrado",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-28T00:29:36.151143+00:00"
+   "since": "2026-11-28T00:34:02.593710+00:00"
   },
   {
    "model": "slim_disc",
@@ -109,7 +109,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-28T00:29:36.151143+00:00"
+   "since": "2026-11-28T00:34:02.593710+00:00"
   },
   {
    "model": "slim_disc",
@@ -120,7 +120,7 @@
    "title": "PlayStation®5 Slim Disk + 2 Jogos",
    "promo": "",
    "source": "zoom",
-   "since": "2026-11-28T00:29:36.151143+00:00"
+   "since": "2026-11-28T00:34:02.593710+00:00"
   },
   {
    "model": "slim_disc",
@@ -134,17 +134,6 @@
    "since": "2026-11-27T06:05:34.595436+00:00"
   },
   {
-   "model": "slim_disc",
-   "store": "mercado livre",
-   "price": "5999.0",
-   "url": "https://www.mercadolivre.com.br/console-sony-playstation-5-edicao-slim-disk-1tb-branco/p/MLB52897777",
-   "bundle": false,
-   "title": "Console Sony Playstation 5 Edição Slim Disk 1tb Branco",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-28T00:22:40.511810+00:00"
-  },
-  {
    "model": "slim_digital",
    "store": "mercado livre",
    "price": "6199.0",
@@ -153,18 +142,7 @@
    "title": "Console PlayStation® 5 Slim Edição Digital 825 GB Branco - Sony",
    "promo": "",
    "source": "mercadolivre",
-   "since": "2026-11-28T00:29:36.151143+00:00"
-  },
-  {
-   "model": "slim_disc",
-   "store": "mercado livre",
-   "price": "7300.0",
-   "url": "https://www.mercadolivre.com.br/console-playstation5-1tb-slim-disk-pacote-astro-bot-e-gran-turismo-7-branco/p/MLB57083347",
-   "bundle": true,
-   "title": "Console Playstation5 1TB Slim Disk - Pacote Astro Bot E Gran Turismo 7 Branco",
-   "promo": "",
-   "source": "mercadolivre",
-   "since": "2026-11-28T00:29:36.151143+00:00"
+   "since": "2026-11-28T00:34:02.593710+00:00"
   }
  ]
 }
